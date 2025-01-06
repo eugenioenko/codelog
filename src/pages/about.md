@@ -3,34 +3,10 @@ layout: ../layouts/AboutLayout.astro
 title: "About"
 ---
 
-AstroPaper is a minimal, responsive and SEO-friendly Astro blog theme. I designed and crafted this based on [my personal blog](https://satnaing.dev/blog).
+Welcome to CodeLog, a tech blog driven by a passion for software engineering.
 
-This theme is aimed to be accessible out of the box. Light and dark mode are supported by
-default and additional color schemes can also be configured.
+My name is Eugene, as a software engineer with over 10 years of experience, I’ve had the privilege of creating solutions using multiple technologies. Throughout my career, I’ve led teams, mentored developers, and helped shape impactful projects that translate complex requirements into intuitive solutions.
 
-This theme is self-documented \_ which means articles/posts in this theme can also be considered as documentations. So, see the documentation for more info.
+At CodeLog, I share insights, lessons, and best practices from my journey in the software development world. Whether you're building modern web applications, exploring new frameworks, or seeking ways to improve your development process, this blog is a space for developers of all levels to learn, grow, and be inspired.
 
-<div>
-  <img src="/assets/dev.svg" class="sm:w-1/2 mx-auto" alt="coding dev illustration">
-</div>
-
-## Tech Stack
-
-This theme is written in vanilla JavaScript (+ TypeScript for type checking) and a little bit of ReactJS for some interactions. TailwindCSS is used for styling; and Markdown is used for blog contents.
-
-## Features
-
-Here are certain features of this site.
-
-- fully responsive and accessible
-- SEO-friendly
-- light & dark mode
-- fuzzy search
-- super fast performance
-- draft posts
-- pagination
-- sitemap & rss feed
-- highly customizable
-
-If you like this theme, you can star/contribute to the [repo](https://github.com/satnaing/astro-paper).  
-Or you can even give any feedback via my [email](mailto:contact@satnaing.dev).
+Join me as we dive into topics like frontend technologies, programming language creation, backend architectures and others.

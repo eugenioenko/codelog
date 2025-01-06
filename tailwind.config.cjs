@@ -60,7 +60,8 @@ module.exports = {
         }
       },
       fontFamily: {
-        mono: ["IBM Plex Mono", "monospace"],
+        mono: ["Ubuntu Mono", "monospace"],
+        sans: ["Noto Sans Display", "system-ui", "sans-serif"],
       },
 
       typography: {
