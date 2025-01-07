@@ -1,5 +1,5 @@
 ---
-author: Eugene Yakhnenko
+author: Yevhen
 pubDatetime: 2023-05-18
 title: Identifying Silent Breaking Changes
 slug: silent-breaking-changes

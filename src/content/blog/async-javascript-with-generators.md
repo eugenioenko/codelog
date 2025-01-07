@@ -1,5 +1,5 @@
 ---
-author: Eugene Yakhnenko
+author: Yevhen Yakhnenko
 pubDatetime: 2023-12-06
 title: Asynchronous JavaScript with Generator Functions
 slug: async-javascript-with-generators

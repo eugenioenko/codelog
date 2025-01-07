@@ -14,19 +14,14 @@ const { activeNav } = Astro.props;
   <a id="skip-to-content" href="#main-content">Skip to content</a>
   <div class="nav-container">
     <div class="top-nav-wrap">
-      <a href="/" class="logo whitespace-nowrap">
-        {
-          LOGO_IMAGE.enable ? (
-            <img
-              src={`/assets/${LOGO_IMAGE.svg ? "logo.svg" : "logo.png"}`}
-              alt={SITE.title}
-              width={LOGO_IMAGE.width}
-              height={LOGO_IMAGE.height}
-            />
-          ) : (
-            SITE.title
-          )
-        }
+      <a href="/" class="flex gap-2 items-center">
+        <img
+          src={`/assets/${LOGO_IMAGE.svg ? "logo.svg" : "logo.png"}`}
+          alt={SITE.title}
+          width={LOGO_IMAGE.width}
+          height={LOGO_IMAGE.height}
+        />
+        <span class="text-2xl md:text-3xl font-mono" >{ SITE.title}</span>
       </a>
       <nav id="nav-menu">
         <button
@@ -196,7 +191,7 @@ const { activeNav } = Astro.props;
     @apply col-span-1;
   }
   nav .active {
-    @apply underline decoration-wavy decoration-2 underline-offset-4;
+    @apply underline decoration-2 underline-offset-4;
   }
   nav a.active svg {
     @apply fill-skin-accent;

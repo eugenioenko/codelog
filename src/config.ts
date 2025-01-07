@@ -2,7 +2,7 @@ import type { Site, SocialObjects } from "./types";
 
 export const SITE: Site = {
   website: "https://codelog.yy-dev.top",
-  author: "Eugene Yakhnenko",
+  author: "Yevhen",
   profile: "https://github.com/eugenioenko/",
   desc: "A blog dedicated to sharing insights, tutorials, and best practices for crafting innovative, user-focused software solutions.",
   title: "CodeLog",
@@ -25,10 +25,11 @@ export const LOCALE = {
 } as const;
 
 export const LOGO_IMAGE = {
-  enable: false,
+  enable: true,
   svg: true,
-  width: 216,
-  height: 46,
+  url: "logo.svg",
+  width: 48,
+  height: 48,
 };
 
 export const SOCIALS: SocialObjects = [

@@ -1,5 +1,5 @@
 ---
-author: Eugene Yakhnenko
+author: Yevhen Yakhnenko
 pubDatetime: 2024-01-06
 title: GraphQL in Your Ember App with Glimmer Apollo
 slug: graphql-ember
