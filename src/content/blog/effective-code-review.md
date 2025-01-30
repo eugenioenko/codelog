@@ -1,5 +1,5 @@
 ---
-author: Yevhen Yakhnenko
+author: Eugene Yakhnenko
 pubDatetime: 2023-12-04
 title: 7 Tips for Effective Code Review
 slug: tips-for-code-review

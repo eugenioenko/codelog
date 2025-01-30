@@ -1,5 +1,5 @@
 ---
-author: Yevhen Yakhnenko
+author: Eugene Yakhnenko
 pubDatetime: 2024-09-18
 title: Debouncing State in React
 slug: debouncing-state-react

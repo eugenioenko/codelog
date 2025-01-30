@@ -32,7 +32,7 @@ export default function Datetime({
         xmlns="http://www.w3.org/2000/svg"
         className={`${
           size === "sm" ? "scale-90" : "scale-100"
-        } inline-block h-6 w-6 min-w-[1.375rem] fill-skin-base`}
+        } fill-theme-base inline-block h-6 w-6 min-w-[1.375rem]`}
         aria-hidden="true"
       >
         <path d="M7 11h2v2H7zm0 4h2v2H7zm4-4h2v2h-2zm0 4h2v2h-2zm4-4h2v2h-2zm0 4h2v2h-2z"></path>
@@ -104,7 +104,7 @@ const EditPost = ({ editPost, postId }: EditPostProps) => {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="icon icon-tabler icons-tabler-outline icon-tabler-edit inline-block !scale-90 fill-skin-base"
+            className="icon icon-tabler icons-tabler-outline icon-tabler-edit fill-theme-base inline-block !scale-90"
             aria-hidden="true"
           >
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />

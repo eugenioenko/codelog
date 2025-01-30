@@ -17,7 +17,7 @@ const { page } = Astro.props;
 ---
 
 <Layout title={`Posts | ${SITE.title}`}>
-  <Header activeNav="posts" />
+  <Header />
   <Main pageTitle="Posts" pageDesc="All the articles I've posted.">
     <ul>
       {
@@ -27,8 +27,6 @@ const { page } = Astro.props;
       }
     </ul>
   </Main>
-
   <Pagination {page} />
-
   <Footer noMarginTop={page.lastPage > 1} />
 </Layout>

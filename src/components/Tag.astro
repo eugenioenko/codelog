@@ -4,15 +4,15 @@ export interface Props {
   size?: "sm" | "lg";
 }
 
-const { tag} = Astro.props;
+const { tag } = Astro.props;
 ---
-<li class="inline-block mr-4 mb-4">
+
+<li class="mb-4 mr-4 inline-block">
   <a
     href={`/tags/${tag}/`}
     transition:name={tag}
-    class="text-xl hover:text-skin-accent focus-visible:p-1 whitespace-nowrap"
+    class="hover:text-theme-accent whitespace-nowrap text-xl focus-visible:p-1"
   >
-  <span class="font-mono text-xl">#</span><span>{tag}</span>
+    <span class="font-mono text-xl">#</span><span>{tag}</span>
   </a>
 </li>
-

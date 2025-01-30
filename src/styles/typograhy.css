@@ -1,0 +1,30 @@
+.prose {
+  @apply !text-theme-base prose-headings:!mb-3 prose-headings:!text-theme-base prose-h3:italic prose-p:!text-theme-base prose-a:!text-theme-base prose-a:!decoration-dashed prose-a:underline-offset-8 hover:prose-a:text-theme-accent prose-blockquote:!border-l-theme-accent prose-blockquote:opacity-80 prose-figcaption:!text-theme-base prose-figcaption:opacity-70 prose-strong:!text-theme-base prose-code:rounded prose-code:bg-theme-card prose-code:p-1 prose-code:before:!content-none prose-code:after:!content-none prose-ol:!text-theme-base prose-ul:overflow-x-clip prose-ul:!text-theme-base prose-li:marker:!text-theme-accent prose-table:text-theme-base prose-th:border prose-th:border-theme-line prose-td:border prose-td:border-theme-line prose-hr:!border-theme-line;
+}
+
+.prose a {
+  @apply break-words hover:!text-theme-accent;
+}
+
+.prose p {
+  line-height: 1.6;
+  font-size: 18px;
+  font-weight: 300;
+}
+.prose thead th:first-child,
+tbody td:first-child,
+tfoot td:first-child {
+  padding-left: 0.5714286em;
+}
+.prose h2#table-of-contents {
+  @apply mb-2;
+}
+.prose details {
+  @apply inline-block cursor-pointer select-none text-theme-base;
+}
+.prose summary {
+  @apply focus-outline;
+}
+.prose h2#table-of-contents + p {
+  @apply hidden;
+}
