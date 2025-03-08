@@ -12,7 +12,6 @@ Welcome to your personal tech blog repository! This project is built using Astro
 - Responsive Design: Works seamlessly across desktop, tablet, and mobile devices.
 - SEO-Optimized: Built-in best practices to help your blog rank higher in search engines.
 
-
 ## Runing locally
 
 ```

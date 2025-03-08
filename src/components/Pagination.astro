@@ -1,6 +1,6 @@
 ---
 import type { Page } from "astro";
-import LinkButton from "./LinkButton.astro";
+import LinkButton from "./LinkButton";
 import type { CollectionEntry } from "astro:content";
 
 export interface Props {
@@ -51,9 +51,9 @@ const { page } = Astro.props;
     @apply mb-8 mt-auto flex justify-center;
   }
   .disabled {
-    @apply pointer-events-none select-none opacity-50 hover:text-skin-base group-hover:fill-skin-base;
+    @apply hover:text-theme-base group-hover:fill-theme-base pointer-events-none select-none opacity-50;
   }
   .disabled-svg {
-    @apply group-hover:!fill-skin-base;
+    @apply group-hover:!fill-theme-base;
   }
 </style>
