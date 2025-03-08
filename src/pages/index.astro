@@ -3,50 +3,59 @@ import { getCollection } from "astro:content";
 import Layout from "@layouts/Layout.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
-import LinkButton from "@components/LinkButton.astro";
+import LinkButton from "@components/LinkButton";
 import Hr from "@components/Hr.astro";
-import Card from "@components/Card";
+import Card from "@components/PostCard";
 import getSortedPosts from "@utils/getSortedPosts";
 import { SITE } from "@config";
+import RssIcon from "@components/RssIcon";
+import { IconArrowRight } from "@tabler/icons-react";
 
 const posts = await getCollection("blog");
 
 const sortedPosts = getSortedPosts(posts);
 const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
 const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
-
 ---
 
 <Layout>
   <Header />
-  <main id="main-content">
-    <section id="hero">
-      <h1>CodeLog</h1>
-      <a
-        target="_blank"
-        href="/rss.xml"
-        class="rss-link"
-        aria-label="rss feed"
-        title="RSS Feed"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="rss-icon"
-          ><path
-            d="M19 20.001C19 11.729 12.271 5 4 5v2c7.168 0 13 5.832 13 13.001h2z"
-          ></path><path
-            d="M12 20.001h2C14 14.486 9.514 10 4 10v2c4.411 0 8 3.589 8 8.001z"
-          ></path><circle cx="6" cy="18" r="2"></circle>
-        </svg>
-        <span class="sr-only">RSS Feed</span>
-      </a>
-      <div class="text-lg">
-
-        <p>
-          Welcome to CodeLog, a tech blog by Yevhen, driven by a passion for software engineering and innovation.
-        </p>
-
-        <p>
-          At CodeLog, I share insights, lessons, and best practices from my journey in the software development world. Whether you’re building modern web applications, exploring new frameworks, or seeking ways to improve your development process, this blog is a space for developers of all levels to learn, grow, and be inspired.
-        </p>
+  <main>
+    <section class="py-12">
+      <div class="flex flex-col gap-8 sm:flex-row">
+        <div class="flex flex-col items-center">
+          <div class="flex items-center justify-center gap-2 pb-6">
+            <h1 class="text-5xl font-bold">CodeLog</h1>
+            <a
+              target="_blank"
+              href="/rss.xml"
+              class="rss-link"
+              aria-label="rss feed"
+              title="RSS Feed"
+            >
+              <RssIcon />
+              <span class="sr-only">RSS Feed</span>
+            </a>
+          </div>
+          <img
+            class="max-w-48"
+            src="/assets/images/developer.svg"
+            alt="developer"
+          />
+        </div>
+        <div class="prose grow text-lg">
+          <p>
+            Welcome to CodeLog, a tech blog by Eugene, driven by a passion for
+            software engineering and innovation.
+          </p>
+          <p>
+            At CodeLog, I share insights, lessons, and best practices from my
+            journey in the software development world. Whether you’re building
+            modern web applications, exploring new frameworks, or seeking ways
+            to improve your development process, this blog is a space for
+            developers of all levels to learn, grow, and be inspired.
+          </p>
+        </div>
       </div>
     </section>
 
@@ -92,14 +101,10 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
       )
     }
 
-    <div class="all-posts-btn-wrapper">
-      <LinkButton href="/posts/">
-        All Posts
-        <svg xmlns="http://www.w3.org/2000/svg"
-          ><path
-            d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"
-          ></path>
-        </svg>
+    <div class="flex justify-center pb-8">
+      <LinkButton className="flex" href="/posts/">
+        View All Posts
+        <IconArrowRight />
       </LinkButton>
     </div>
   </main>
@@ -108,23 +113,6 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 </Layout>
 
 <style>
-  /* ===== Hero Section ===== */
-  #hero {
-    @apply pb-6 pt-8;
-  }
-  #hero h1 {
-    @apply my-4 inline-block text-3xl font-bold sm:my-8 sm:text-5xl;
-  }
-  #hero .rss-link {
-    @apply mb-6;
-  }
-  #hero .rss-icon {
-    @apply mb-2 h-6 w-6 scale-110 fill-skin-accent sm:mb-3 sm:scale-125;
-  }
-  #hero p {
-    @apply my-2;
-  }
-
   /* ===== Featured & Recent Posts Sections ===== */
   #featured,
   #recent-posts {

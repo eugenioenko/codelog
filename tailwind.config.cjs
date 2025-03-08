@@ -10,15 +10,20 @@ module.exports = {
     },
 
     extend: {
+      colors : {
+        pink: {
+          500: "var(--color-accent)"
+        },
+      },
       textColor: {
-        skin: {
+        theme: {
           base: "var(--color-text-base)",
           accent: "var(--color-accent)",
           inverted: "var(--color-fill)",
         },
       },
       backgroundColor: {
-        skin: {
+        theme: {
           fill: "var(--color-fill)",
           accent: "var(--color-accent)",
           inverted: "var(--color-text-base)",
@@ -27,26 +32,26 @@ module.exports = {
         },
       },
       outlineColor: {
-        skin: {
+        theme: {
           fill: "var(--color-accent)",
         },
       },
       borderColor: {
-        skin: {
+        theme: {
           line: "var(--color-border)",
           fill: "var(--color-text-base)",
           accent: "var(--color-accent)",
         },
       },
       fill: {
-        skin: {
+        theme: {
           base: "var(--color-text-base)",
           accent: "var(--color-accent)",
         },
         transparent: "transparent",
       },
       stroke: {
-        skin: {
+        theme: {
           accent: "var(--color-accent)",
         }
       },
