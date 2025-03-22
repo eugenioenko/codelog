@@ -1,0 +1,24 @@
+---
+// Import necessary libraries and components
+import { LOCALE } from "@config";
+import { IconCalendarWeek } from "@tabler/icons-react";
+
+const { pubDatetime, modDatetime } = Astro.props;
+
+const datetime = new Date(
+  modDatetime && modDatetime > pubDatetime ? modDatetime : pubDatetime
+);
+
+const date = datetime.toLocaleDateString("en", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+});
+---
+
+<div class="flex items-center justify-between">
+  <div class="flex items-center gap-1">
+    <IconCalendarWeek />
+    <time datetime={datetime.toISOString()} class="text-sm">{date}</time>
+  </div>
+</div>

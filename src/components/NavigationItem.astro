@@ -1,0 +1,11 @@
+---
+const { active, href, className } = Astro.props;
+---
+
+<li
+  class={`text-lg font-mono inline-flex items-center hover:text-theme-accent ${active === href ? "active" : ""}`}
+>
+  <a href={`/${href}/`} class={`inline-flex items-center ${className ?? ""}`}>
+    <slot />
+  </a>
+</li>

@@ -3,23 +3,19 @@ import { SITE } from "@config";
 import Layout from "@layouts/Layout.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
-import LinkButton from "@components/LinkButton";
+import LinkButton from "@components/LinkButton.astro";
 ---
 
 <Layout title={`404 Not Found | ${SITE.title}`}>
   <Header />
   <main class="flex grow items-center justify-center">
-    <div class="flex flex-col justify-center items-center">
-      <h1 class="text-9xl text-theme-accent font-mono">404</h1>
-      <div class="text-2xl pb-4">Page Not Found</div>
-      <LinkButton
-        href="/"
-        className="text-lg underline"
-      >
+    <div class="flex flex-col items-center justify-center">
+      <h1 class="font-mono text-9xl text-theme-accent">404</h1>
+      <div class="pb-4 text-2xl">Page Not Found</div>
+      <LinkButton href="/" className="text-lg underline">
         Go back home
       </LinkButton>
     </div>
   </main>
   <Footer />
 </Layout>
-

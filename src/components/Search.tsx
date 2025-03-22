@@ -1,8 +1,8 @@
 import Fuse from "fuse.js";
 import { useEffect, useRef, useState, useMemo, type FormEvent } from "react";
-import Card from "@components/PostCard";
+import Card from "@components/PostCard.astro";
 import type { CollectionEntry } from "astro:content";
-import { IconSearch } from "@tabler/icons-react";
+import { IconSearch } from '@tabler/icons-react';
 
 export type SearchItem = {
   title: string;
@@ -84,7 +84,7 @@ export default function SearchBar({ searchList }: Props) {
   return (
     <>
       <label className="relative block">
-        <IconSearch className="absolute top-3 left-2"/>
+        <IconSearch className="absolute top-3 left-2" />
         <input
           className="border-theme-fill/40 bg-theme-fill focus:border-theme-accent block w-full rounded border py-3 pl-10 pr-3 placeholder:italic focus:outline-none"
           placeholder="Start typing to search..."
@@ -105,13 +105,13 @@ export default function SearchBar({ searchList }: Props) {
       )}
 
       <ul> {searchResults &&
-          searchResults.map(({ item, refIndex }) => (
-            <Card
-              href={`/posts/${item.slug}/`}
-              frontmatter={item.data}
-              key={`${refIndex}-${item.slug}`}
-            />
-          ))}
+        searchResults.map(({ item, refIndex }) => (
+          <Card
+            href={`/posts/${item.slug}/`}
+            frontmatter={item.data}
+            key={`${refIndex}-${item.slug}`}
+          />
+        ))}
       </ul>
     </>
   );
