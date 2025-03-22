@@ -6,7 +6,7 @@ export default async () => {
   return satori(
     <div
       style={{
-        background: "#fefbfb",
+        background: "rgb(34, 40, 49)",
         width: "100%",
         height: "100%",
         display: "flex",
@@ -20,7 +20,7 @@ export default async () => {
           top: "-1px",
           right: "-1px",
           border: "4px solid #000",
-          background: "#ecebeb",
+          background: "rgb(255, 87, 34)",
           opacity: "0.9",
           borderRadius: "4px",
           display: "flex",
@@ -34,7 +34,8 @@ export default async () => {
       <div
         style={{
           border: "4px solid #000",
-          background: "#fefbfb",
+          background: "rgb(52, 63, 96)",
+          color: "rgba(255, 255, 255, 1)",
           borderRadius: "4px",
           display: "flex",
           justifyContent: "center",
@@ -65,7 +66,7 @@ export default async () => {
               textAlign: "center",
             }}
           >
-            <p style={{ fontSize: 72, fontWeight: "bold" }}>{SITE.title}</p>
+            <p style={{ fontSize: 128, fontWeight: "bold" }}>{SITE.title}</p>
             <p style={{ fontSize: 28 }}>{SITE.desc}</p>
           </div>
 

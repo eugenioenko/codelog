@@ -10,7 +10,7 @@ function createProgressBar() {
 }
 createProgressBar();
 
-/** Update the progress bar  when user scrolls */
+/** Update the progress bar when user scrolls */
 function updateScrollProgress() {
   document.addEventListener("scroll", () => {
     const winScroll =
@@ -83,3 +83,15 @@ attachCopyButtons();
 document.addEventListener("astro:after-swap", () =>
   window.scrollTo({ left: 0, top: 0, behavior: "instant" })
 );
+
+/* Adds scroll to top to the end of the post */
+function attachBackToTop() {
+  const button = document.getElementById("backToTop");
+  if (button) {
+    button.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+}
+
+attachBackToTop();

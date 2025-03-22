@@ -3,12 +3,12 @@ import { getCollection } from "astro:content";
 import Layout from "@layouts/Layout.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
-import LinkButton from "@components/LinkButton";
+import LinkButton from "@components/LinkButton.astro";
 import Hr from "@components/Hr.astro";
-import Card from "@components/PostCard";
+import Card from "@components/PostCard.astro";
 import getSortedPosts from "@utils/getSortedPosts";
 import { SITE } from "@config";
-import RssIcon from "@components/RssIcon";
+import RssIcon from "@components/RssIcon.astro";
 import { IconArrowRight } from "@tabler/icons-react";
 
 const posts = await getCollection("blog");
@@ -67,9 +67,9 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
           <section id="featured">
             <h2>Featured</h2>
             <ul>
-              {featuredPosts.map(({ data, slug }) => (
+              {featuredPosts.map(({ data }) => (
                 <Card
-                  href={`/posts/${slug}/`}
+                  href={`/posts/${data.slug}/`}
                   frontmatter={data}
                   secHeading={false}
                 />
@@ -87,10 +87,10 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
           <h2>Recent Posts</h2>
           <ul>
             {recentPosts.map(
-              ({ data, slug }, index) =>
+              ({ data }, index) =>
                 index < SITE.postPerIndex && (
                   <Card
-                    href={`/posts/${slug}/`}
+                    href={`/posts/${data.slug}/`}
                     frontmatter={data}
                     secHeading={false}
                   />

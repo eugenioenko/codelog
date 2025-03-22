@@ -1,6 +1,6 @@
 ---
 import { SOCIALS } from "@config";
-import LinkButton from "./LinkButton";
+import LinkButton from "./LinkButton.astro";
 import socialIcons from "@assets/socialIcons";
 
 export interface Props {
@@ -27,7 +27,7 @@ const { centered = false } = Astro.props;
 
 <style>
   .social-icons {
-    @apply flex-wrap justify-center gap-1;
+    @apply flex-wrap justify-center gap-4 sm:gap-2;
   }
   .link-button {
     @apply p-2 hover:rotate-6 sm:p-1;

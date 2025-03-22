@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import Card from "@components/PostCard";
+import Card from "@components/PostCard.astro";
 import Footer from "@components/Footer.astro";
 import Header from "@components/Header.astro";
 import { SITE } from "@config";
@@ -69,8 +69,8 @@ const MonthMap: Record<string, string> = {
                             new Date(a.data.pubDatetime).getTime() / 1000
                           )
                       )
-                      .map(({ data, slug }) => (
-                        <Card href={`/posts/${slug}`} frontmatter={data} />
+                      .map(({ data }) => (
+                        <Card href={`/posts/${data.slug}`} frontmatter={data} />
                       ))}
                   </ul>
                 </div>

@@ -1,6 +1,7 @@
 ---
 import { LOGO_IMAGE, SITE } from "@config";
-import Navigation from "./Navigation";
+import Navigation from "./Navigation.astro";
+import Logo from "./Logo.astro";
 
 export interface Props {
   activeNav?: "posts" | "archives" | "tags" | "about" | "search" | "projects";
@@ -9,15 +10,12 @@ export interface Props {
 const { activeNav } = Astro.props;
 ---
 
-<header class="relative flex items-center border-b border-theme-line py-4">
+<header
+  class="relative flex items-center border-b border-theme-line py-3 pl-4 pr-2 sm:px-0 sm:py-4"
+>
   <a href="/" class="flex items-center gap-2">
-    <img
-      class="w-8 sm:w-12 h-auto"
-      src={`/assets/${LOGO_IMAGE.svg ? "logo.svg" : "logo.png"}`}
-      alt={SITE.title}
-
-    />
+    <Logo class="h-auto w-8 sm:w-12" />
     <span class="md:text-3xl font-mono text-2xl">{SITE.title}</span>
   </a>
-  <Navigation client:load active={activeNav} />
+  <Navigation active={activeNav} />
 </header>

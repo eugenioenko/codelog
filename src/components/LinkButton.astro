@@ -1,0 +1,12 @@
+---
+const { className } = Astro.props;
+---
+
+<a
+  class:list={[
+    "group inline-block cursor-pointer underline-offset-8 hover:text-theme-accent hover:underline",
+    className,
+  ]}
+>
+  <slot />
+</a>

@@ -1,0 +1,63 @@
+---
+import {
+  IconArchive,
+  IconMenu2,
+  IconMoon,
+  IconSearch,
+  IconSun,
+} from "@tabler/icons-react";
+import LinkButton from "./LinkButton.astro";
+import NavigationItem from "./NavigationItem.astro";
+
+const { active } = Astro.props;
+let isOpen = false;
+
+function toggleMenu() {
+  isOpen = !isOpen;
+}
+---
+
+<nav class="navigation flex grow items-center justify-end">
+  <button
+    class="p-2 sm:hidden"
+    id="menu-btn"
+    role="menu"
+    aria-controls="menu"
+    aria-expanded="false"
+    aria-haspopup="true"
+  >
+    <IconMenu2 />
+  </button>
+  <ul
+    id="menu"
+    role="menu"
+    aria-hidden="true"
+    class={`absolute z-50 flex flex-col sm:flex-row sm:static items-center gap-6 font-mono pb-6 sm:pb-0 top-20 bg-theme-fill left-0 right-0 transition-all overflow-hidden sm:overflow-visible ${isOpen ? "active" : "inactive"}`}
+  >
+    <NavigationItem href="posts" active={active}>Posts</NavigationItem>
+    <NavigationItem href="projects" active={active}>Projects</NavigationItem>
+    <NavigationItem href="tags" active={active}>Tags</NavigationItem>
+    <NavigationItem href="about" active={active}>About</NavigationItem>
+    <NavigationItem href="archives" active={active} class="gap-1">
+      <IconArchive />
+      <span class="sm:hidden">Archive</span>
+    </NavigationItem>
+    <NavigationItem href="search" active={active} class="gap-1">
+      <IconSearch />
+      <span class="sm:hidden">Search</span>
+    </NavigationItem>
+    <li class="inline-flex items-center">
+      <button
+        id="theme-btn"
+        class="focus-outline inline-flex items-center"
+        title="Toggles light & dark"
+        aria-label="auto"
+        aria-live="polite"
+      >
+        <IconMoon id="moon-svg" />
+        <IconSun id="sun-svg" />
+        <span class="sm:hidden">Theme</span>
+      </button>
+    </li>
+  </ul>
+</nav>
