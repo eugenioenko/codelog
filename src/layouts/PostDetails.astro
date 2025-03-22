@@ -5,7 +5,6 @@ import Footer from "@components/Footer.astro";
 import Tag from "@components/Tag.astro";
 import Datetime from "@components/Datetime.astro";
 import type { CollectionEntry } from "astro:content";
-import { slugifyStr } from "@utils/slugify";
 import ShareLinks from "@components/ShareLinks.astro";
 import PostFooter from "@components/PostFooter.astro";
 import BackToTop from "@components/BackToTop.astro";
@@ -31,11 +30,12 @@ const {
   pubDatetime,
   modDatetime,
   tags,
+  slug,
 } = post.data;
 
 const ogImageUrl = typeof ogImage === "string" ? ogImage : ogImage?.src;
 const ogUrl = new URL(
-  ogImageUrl ?? `/posts/${slugifyStr(title)}.png`,
+  ogImageUrl ?? `/posts/${slug}/index.png`,
   Astro.url.origin
 ).href;
 
@@ -65,10 +65,7 @@ const nextPost =
 <Layout {...layoutProps}>
   <Header />
   <main class="py-8">
-    <h1
-      transition:name={slugifyStr(title)}
-      class="text-2xl font-semibold text-theme-accent"
-    >
+    <h1 transition:name={slug} class="text-2xl font-semibold text-theme-accent">
       {title}
     </h1>
     <div class="flex items-center justify-between">
@@ -79,7 +76,7 @@ const nextPost =
       <Content />
     </article>
     <ul class="my-8">
-      {tags.map(tag => <Tag tag={slugifyStr(tag)} />)}
+      {tags.map(tag => <Tag tag={tag} />)}
     </ul>
     <div
       class="flex flex-col-reverse items-center justify-between gap-6 sm:flex-row-reverse sm:items-end sm:gap-4"

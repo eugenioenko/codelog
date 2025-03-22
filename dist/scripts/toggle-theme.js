@@ -53,7 +53,10 @@ function setMenuToggle() {
 window.onload = () => {
   setThemeFeature();
   setMenuToggle();
-  document.addEventListener("astro:after-swap", setThemeFeature);
+  document.addEventListener("astro:after-swap", () => {
+    setThemeFeature();
+    setMenuToggle();
+  });
 };
 
 window
