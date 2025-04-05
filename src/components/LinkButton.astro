@@ -1,5 +1,5 @@
 ---
-const { className } = Astro.props;
+const { className, ...rest } = Astro.props;
 ---
 
 <a
@@ -7,6 +7,7 @@ const { className } = Astro.props;
     "group inline-block cursor-pointer underline-offset-8 hover:text-theme-accent hover:underline",
     className,
   ]}
+  {...rest}
 >
   <slot />
 </a>
