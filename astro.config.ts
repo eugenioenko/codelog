@@ -8,6 +8,7 @@ import { SITE } from "./src/config";
 
 export default defineConfig({
   site: SITE.website,
+  outDir: "./docs",
   integrations: [
     tailwind({
       applyBaseStyles: false,
