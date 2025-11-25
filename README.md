@@ -2,7 +2,7 @@
 
 Welcome to your personal tech blog repository! This project is built using Astro, a modern static site generator optimized for performance and simplicity. Share your technical insights, tutorials, and ideas in a beautifully designed, fast, and SEO-friendly blog.
 
-### > [Live Preview Here](https://blog.yy-dev.top)
+### > [Live Preview Here](https://codelog.yy-dev.top)
 
 ## Features
 
