@@ -19,22 +19,17 @@ Kasper-js is a work-in-progress JavaScript HTML template parser and renderer des
 
 Skedoodle is a real-time, interactive sketching and drawing tool that allows multiple users to connect, view, and edit the same board simultaneously. Designed for teams to brainstorm and visually collaborate. Built with Next.js, WebSocket, and Two.js, the platform delivers fast, responsive, and synchronized interactions across devices.
 
-[https://github.com/eugenioenko/skedoodle](github.com/eugenioenko/skedoodle)
+[https://github.com/eugenioenko/skedoodle](https://github.com/eugenioenko/skedoodle)
 
 ## Fire’n Ice
 
 Fire'n Ice is a work-in-progress remake of the classic NES game, bringing nostalgia to modern browsers while introducing updated features and gameplay mechanics.
 
-[https://github.com/eugenioenko/fire-n-ice](github.com/eugenioenko/fire-n-ice)
+[https://github.com/eugenioenko/fire-n-ice](https://github.com/eugenioenko/fire-n-ice)
 
 ## @script
 
 @script is an interpreter written in typescript of a scripting language somewhat similar to javascript which borrows some ideas from python
 
-[https://github.com/eugenioenko/interpreter](github.com/eugenioenko/interpreter)
+[https://github.com/eugenioenko/interpreter](https://github.com/eugenioenko/interpreter)
 
-## SDF CSS Framework |
-
-8 year old attempt int creating a cohesive and intuitive css framework
-
-[https://github.com/eugenioenko/sdf-css](github.com/eugenioenko/sdf-css)
