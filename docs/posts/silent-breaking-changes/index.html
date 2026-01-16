@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en" class="scroll-smooth"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="canonical" href="https://codelog.yy-dev.top/posts/silent-breaking-changes/"><meta name="generator" content="Astro v5.5.3"><!-- General Meta Tags --><title>Identifying Silent Breaking Changes | CodeLog</title><meta name="title" content="Identifying Silent Breaking Changes | CodeLog"><meta name="description" content="Identifying Silent Breaking Changes"><meta name="author" content="Eugene"><link rel="sitemap" href="/sitemap-index.xml"><!-- Open Graph / Facebook --><meta property="og:title" content="Identifying Silent Breaking Changes | CodeLog"><meta property="og:description" content="Identifying Silent Breaking Changes"><meta property="og:url" content="https://codelog.yy-dev.top/posts/silent-breaking-changes/"><meta property="og:image" content="https://codelog.yy-dev.top/posts/silent-breaking-changes/index.png"><!-- Article Published/Modified time --><meta property="article:published_time" content="2023-05-18T00:00:00.000Z"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://codelog.yy-dev.top/posts/silent-breaking-changes/"><meta property="twitter:title" content="Identifying Silent Breaking Changes | CodeLog"><meta property="twitter:description" content="Identifying Silent Breaking Changes"><meta property="twitter:image" content="https://codelog.yy-dev.top/posts/silent-breaking-changes/index.png"><!-- Google JSON-LD Structured data --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Identifying Silent Breaking Changes | CodeLog","image":"https://codelog.yy-dev.top/posts/silent-breaking-changes/index.png","datePublished":"2023-05-18T00:00:00.000Z","author":[{"@type":"Person","name":"Eugene","url":"https://github.com/eugenioenko/"}]}</script><!-- Google Font --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Squada+One&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet';" crossorigin><meta name="theme-color" content=""><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CMTcOisY.js"></script><script src="/scripts/toggle-theme.js" async></script><link rel="stylesheet" href="/_astro/about.BAuhEYWy.css">
+<!DOCTYPE html><html lang="en" class="scroll-smooth"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="canonical" href="https://codelog.yy-dev.top/posts/silent-breaking-changes/"><meta name="generator" content="Astro v5.5.3"><!-- General Meta Tags --><title>Silent Breaking Changes - A Developer’s Guide to Identifying Hidden Bugs | CodeLog</title><meta name="title" content="Silent Breaking Changes - A Developer’s Guide to Identifying Hidden Bugs | CodeLog"><meta name="description" content="A comprehensive guide to understanding, detecting, and preventing silent breaking changes in software systems"><meta name="author" content="Eugene Yakhnenko"><link rel="sitemap" href="/sitemap-index.xml"><!-- Open Graph / Facebook --><meta property="og:title" content="Silent Breaking Changes - A Developer’s Guide to Identifying Hidden Bugs | CodeLog"><meta property="og:description" content="A comprehensive guide to understanding, detecting, and preventing silent breaking changes in software systems"><meta property="og:url" content="https://codelog.yy-dev.top/posts/silent-breaking-changes/"><meta property="og:image" content="https://codelog.yy-dev.top/posts/silent-breaking-changes/index.png"><!-- Article Published/Modified time --><meta property="article:published_time" content="2023-05-18T00:00:00.000Z"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://codelog.yy-dev.top/posts/silent-breaking-changes/"><meta property="twitter:title" content="Silent Breaking Changes - A Developer’s Guide to Identifying Hidden Bugs | CodeLog"><meta property="twitter:description" content="A comprehensive guide to understanding, detecting, and preventing silent breaking changes in software systems"><meta property="twitter:image" content="https://codelog.yy-dev.top/posts/silent-breaking-changes/index.png"><!-- Google JSON-LD Structured data --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Silent Breaking Changes - A Developer’s Guide to Identifying Hidden Bugs | CodeLog","image":"https://codelog.yy-dev.top/posts/silent-breaking-changes/index.png","datePublished":"2023-05-18T00:00:00.000Z","author":[{"@type":"Person","name":"Eugene Yakhnenko","url":"https://github.com/eugenioenko/"}]}</script><!-- Google Font --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Squada+One&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet';" crossorigin><meta name="theme-color" content=""><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CMTcOisY.js"></script><script src="/scripts/toggle-theme.js" async></script><link rel="stylesheet" href="/_astro/about.CV207I6D.css">
 <style>@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media (prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
 .social-icons:where(.astro-wkojbtzc){display:flex;flex-direction:column;flex-wrap:wrap;align-items:center;justify-content:center;gap:.25rem}@media (min-width: 640px){.social-icons:where(.astro-wkojbtzc){align-items:flex-start}}.link-button:where(.astro-wkojbtzc){--tw-scale-x: .9;--tw-scale-y: .9;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));padding:.5rem}.link-button:where(.astro-wkojbtzc):hover{--tw-rotate: 6deg;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@media (min-width: 640px){.link-button:where(.astro-wkojbtzc){padding:.25rem}}
 </style><style>[data-astro-transition-scope="astro-yb6n2ciq-1"] { view-transition-name: silent-breaking-changes; }@layer astro { ::view-transition-old(silent-breaking-changes) { 
@@ -109,72 +109,384 @@
 	animation-duration: 180ms;
 	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
 	animation-fill-mode: both;
-	animation-name: astroFadeIn; }</style></head> <body> <div class="mx-auto flex min-h-dvh w-full max-w-3xl flex-col sm:px-6">  <header class="relative flex items-center border-b border-theme-line py-3 pl-4 pr-2 sm:px-0 sm:py-4"> <a href="/" class="flex items-center gap-2"> <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" class="h-auto w-8 sm:w-12"> <path d="M24 4.799v14.402A4.8 4.8 0 0 1 19.201 24H4.799A4.8 4.8 0 0 1 0 19.201V4.799A4.8 4.8 0 0 1 4.799 0h14.402A4.8 4.8 0 0 1 24 4.799z" id="logo-svg"></path> <path style="fill:none;fill-rule:nonzero" d="M0 0h24v24H0z"></path> <path d="m7 8-4 4 4 4M17 8l4 4-4 4M14 4l-4 16" style="fill:none;fill-rule:nonzero;stroke:#fff;stroke-width:1px"></path> </svg> <span class="md:text-3xl font-mono text-2xl">CodeLog</span> </a> <nav class="navigation flex grow items-center justify-end"> <button class="p-2 sm:hidden" id="menu-btn" role="menu" aria-controls="menu" aria-expanded="false" aria-haspopup="true"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-menu-2 "><path d="M4 6l16 0"></path><path d="M4 12l16 0"></path><path d="M4 18l16 0"></path></svg> </button> <ul id="menu" role="menu" aria-hidden="true" class="absolute z-50 flex flex-col sm:flex-row sm:static items-center gap-6 font-mono pb-6 sm:pb-0 top-20 bg-theme-fill left-0 right-0 transition-all overflow-hidden sm:overflow-visible inactive"> <li class="text-lg font-mono inline-flex items-center hover:text-theme-accent "> <a href="/posts/" class="inline-flex items-center "> Posts </a> </li> <li class="text-lg font-mono inline-flex items-center hover:text-theme-accent "> <a href="/projects/" class="inline-flex items-center "> Projects </a> </li> <li class="text-lg font-mono inline-flex items-center hover:text-theme-accent "> <a href="/tags/" class="inline-flex items-center "> Tags </a> </li> <li class="text-lg font-mono inline-flex items-center hover:text-theme-accent "> <a href="/about/" class="inline-flex items-center "> About </a> </li> <li class="text-lg font-mono inline-flex items-center hover:text-theme-accent "> <a href="/archives/" class="inline-flex items-center ">  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-archive "><path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path><path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10"></path><path d="M10 12l4 0"></path></svg> <span class="sm:hidden">Archive</span>  </a> </li> <li class="text-lg font-mono inline-flex items-center hover:text-theme-accent "> <a href="/search/" class="inline-flex items-center ">  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-search "><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path><path d="M21 21l-6 -6"></path></svg> <span class="sm:hidden">Search</span>  </a> </li> <li class="inline-flex items-center"> <button id="theme-btn" class="focus-outline inline-flex items-center" title="Toggles light & dark" aria-label="auto" aria-live="polite"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-moon " id="moon-svg"><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path></svg> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-sun " id="sun-svg"><path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"></path></svg> <span class="sm:hidden">Theme</span> </button> </li> </ul> </nav> </header> <main class="py-8"> <h1 class="text-2xl font-semibold text-theme-accent" data-astro-transition-scope="astro-yb6n2ciq-1"> Identifying Silent Breaking Changes </h1> <div class="flex items-center justify-between"> <div class="flex items-center justify-between"> <div class="flex items-center gap-1"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-calendar-week "><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"></path><path d="M16 3v4"></path><path d="M8 3v4"></path><path d="M4 11h16"></path><path d="M7 14h.013"></path><path d="M10.01 14h.005"></path><path d="M13.01 14h.005"></path><path d="M16.015 14h.005"></path><path d="M13.015 17h.005"></path><path d="M7.01 17h.005"></path><path d="M10.01 17h.005"></path></svg> <time datetime="2023-05-18T00:00:00.000Z" class="text-sm">May 17, 2023</time> </div> </div> <a class="group inline-block cursor-pointer underline-offset-8 hover:text-theme-accent hover:underline hidden items-center justify-center gap-1 sm:flex" href="https://github.com/eugenioenko/codelog/edit/main/src/content/blog/silent-breaking-changes" rel="noopener noreferrer" target="_blank"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-edit "><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"></path><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"></path><path d="M16 5l3 3"></path></svg><span class="text-sm italic">Suggest Changes</span> </a> </div> <article id="article" class="prose mx-auto mt-8 max-w-3xl"> <h1 id="identifying-silent-breaking-changes-in-code">Identifying Silent Breaking Changes in Code</h1>
-<p>Silent breaking changes in code are significant challenge for developers and code bases because they introduce alterations that are not immediately apparent or visible.
-These changes can lead to unexpected issues in applications, and identifying and addressing them becomes crucial for maintaining code stability. Lets explore some strategies to recognize and handle silent breaking changes.</p>
-<h2 id="common-types-of-silent-breaking-changes">Common Types of Silent Breaking Changes</h2>
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-4"] { view-transition-name: best-practices; }@layer astro { ::view-transition-old(best-practices) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(best-practices) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(best-practices) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(best-practices) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-5"] { view-transition-name: development; }@layer astro { ::view-transition-old(development) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(development) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(development) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(development) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-6"] { view-transition-name: productivity; }@layer astro { ::view-transition-old(productivity) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(productivity) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(productivity) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(productivity) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-6"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-6"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-6"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-6"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-6"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-6"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-6"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-6"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head> <body> <div class="mx-auto flex min-h-dvh w-full max-w-3xl flex-col sm:px-6">  <header class="relative flex items-center border-b border-theme-line py-3 pl-4 pr-2 sm:px-0 sm:py-4"> <a href="/" class="flex items-center gap-2"> <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" class="h-auto w-8 sm:w-12"> <path d="M24 4.799v14.402A4.8 4.8 0 0 1 19.201 24H4.799A4.8 4.8 0 0 1 0 19.201V4.799A4.8 4.8 0 0 1 4.799 0h14.402A4.8 4.8 0 0 1 24 4.799z" id="logo-svg"></path> <path style="fill:none;fill-rule:nonzero" d="M0 0h24v24H0z"></path> <path d="m7 8-4 4 4 4M17 8l4 4-4 4M14 4l-4 16" style="fill:none;fill-rule:nonzero;stroke:#fff;stroke-width:1px"></path> </svg> <span class="md:text-3xl font-mono text-2xl">CodeLog</span> </a> <nav class="navigation flex grow items-center justify-end"> <button class="p-2 sm:hidden" id="menu-btn" role="menu" aria-controls="menu" aria-expanded="false" aria-haspopup="true"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-menu-2 "><path d="M4 6l16 0"></path><path d="M4 12l16 0"></path><path d="M4 18l16 0"></path></svg> </button> <ul id="menu" role="menu" aria-hidden="true" class="absolute z-50 flex flex-col sm:flex-row sm:static items-center gap-6 font-mono pb-6 sm:pb-0 top-20 bg-theme-fill left-0 right-0 transition-all overflow-hidden sm:overflow-visible inactive"> <li class="text-lg font-mono inline-flex items-center hover:text-theme-accent "> <a href="/posts/" class="inline-flex items-center "> Posts </a> </li> <li class="text-lg font-mono inline-flex items-center hover:text-theme-accent "> <a href="/projects/" class="inline-flex items-center "> Projects </a> </li> <li class="text-lg font-mono inline-flex items-center hover:text-theme-accent "> <a href="/tags/" class="inline-flex items-center "> Tags </a> </li> <li class="text-lg font-mono inline-flex items-center hover:text-theme-accent "> <a href="/about/" class="inline-flex items-center "> About </a> </li> <li class="text-lg font-mono inline-flex items-center hover:text-theme-accent "> <a href="/archives/" class="inline-flex items-center ">  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-archive "><path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path><path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10"></path><path d="M10 12l4 0"></path></svg> <span class="sm:hidden">Archive</span>  </a> </li> <li class="text-lg font-mono inline-flex items-center hover:text-theme-accent "> <a href="/search/" class="inline-flex items-center ">  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-search "><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path><path d="M21 21l-6 -6"></path></svg> <span class="sm:hidden">Search</span>  </a> </li> <li class="inline-flex items-center"> <button id="theme-btn" class="focus-outline inline-flex items-center" title="Toggles light & dark" aria-label="auto" aria-live="polite"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-moon " id="moon-svg"><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path></svg> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-sun " id="sun-svg"><path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"></path></svg> <span class="sm:hidden">Theme</span> </button> </li> </ul> </nav> </header> <main class="py-8"> <h1 class="text-2xl font-semibold text-theme-accent" data-astro-transition-scope="astro-yb6n2ciq-1"> Silent Breaking Changes - A Developer’s Guide to Identifying Hidden Bugs </h1> <div class="flex items-center justify-between"> <div class="flex items-center justify-between"> <div class="flex items-center gap-1"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-calendar-week "><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"></path><path d="M16 3v4"></path><path d="M8 3v4"></path><path d="M4 11h16"></path><path d="M7 14h.013"></path><path d="M10.01 14h.005"></path><path d="M13.01 14h.005"></path><path d="M16.015 14h.005"></path><path d="M13.015 17h.005"></path><path d="M7.01 17h.005"></path><path d="M10.01 17h.005"></path></svg> <time datetime="2023-05-18T00:00:00.000Z" class="text-sm">May 17, 2023</time> </div> </div> <a class="group inline-block cursor-pointer underline-offset-8 hover:text-theme-accent hover:underline hidden items-center justify-center gap-1 sm:flex" href="https://github.com/eugenioenko/codelog/edit/main/src/content/blog/silent-breaking-changes" rel="noopener noreferrer" target="_blank"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-edit "><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"></path><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"></path><path d="M16 5l3 3"></path></svg><span class="text-sm italic">Suggest Changes</span> </a> </div> <article id="article" class="prose mx-auto mt-8 max-w-3xl"> <h1 id="silent-breaking-changes-a-developers-guide-to-identifying-hidden-bugs">Silent Breaking Changes: A Developer’s Guide to Identifying Hidden Bugs</h1>
+<p>Here’s something that’s kept me up at night more than once in my career: you push a seemingly harmless change, tests pass green, code reviews look good, and then three days later you’re in a war room trying to figure out why a microservice stopped responding. Welcome to the world of silent breaking changes.</p>
+<h2 id="what-are-silent-breaking-changes">What Are Silent Breaking Changes?</h2>
+<p>A <strong>silent breaking change</strong> is a backward-incompatible change that doesn’t immediately scream at you through compilation errors or failing tests. Instead, it lurks in the shadows, only revealing itself through subtle runtime bugs, weird production behavior, or angry customer reports days (or weeks) after deployment.</p>
+<p>They’re “silent” because:</p>
+<ul>
+<li>Your code still compiles and builds successfully</li>
+<li>Automated tests do not catch the changed behavior</li>
+<li>Only specific consumers or edge cases are affected</li>
+<li>The impact can surface long after deployment</li>
+</ul>
+<h2 id="three-general-categories">Three General Categories</h2>
+<p>Before we dive into where these issues hide, it helps to understand the fundamental types of silent breaking changes. Most fall into one of these three categories:</p>
+<h3 id="1-algorithmic-changes">1. Algorithmic Changes</h3>
+<p>Modifying the underlying logic or implementation without updating documentation, tests, or properly communicating the change. The method signature stays the same, but the way it computes results changes.</p>
+<p><em>Example:</em> Your <code>calculateShippingCost()</code> function used to round prices up to the nearest dollar, but you “improved” it to use standard rounding (nearest). Suddenly, customers who budgeted for $15 shipping are getting charged $14, and your accounting system that expected whole numbers is confused.</p>
+<h3 id="2-behavioral-changes">2. Behavioral Changes</h3>
+<p>Changes in input/output expectations, error handling, or side effects that produce undesired behavior. This includes changes to return value semantics, validation rules, or when exceptions are thrown.</p>
+<p><em>Example:</em> Your authentication API used to throw a <code>405 Method Not Allowed</code> for invalid credentials, and your tests only checked that an error was thrown. You switched to throwing a <code>401 Unauthorized</code> to be more “RESTful.” Now, client apps that specifically checked for a <code>405</code> code break, even though your tests still pass, because they didn’t verify the exact error code.</p>
+<h3 id="3-side-effect-changes">3. Side Effect Changes</h3>
+<p>Modifications that impact global state, interactions with other systems, resource usage, dependencies, or introduce race conditions. These are particularly insidious because they affect things outside the immediate function call.</p>
+<p><em>Example:</em> You optimize a data processing function to use async batch writes instead of synchronous single writes. The function still returns success, but now there’s a delay before data appears in the database. Processes that immediately query for the data start failing intermittently.</p>
+<p>Now let’s look at where these categories manifest across different layers of your stack.</p>
+<h2 id="where-silent-breaking-changes-hide">Where Silent Breaking Changes Hide</h2>
+<p>Silent breaking changes can lurk in any layer of your stack. Here are the most common culprits:</p>
+<h3 id="1-api-and-interface-changes">1. API and Interface Changes</h3>
+<p>Even when schemas appear unchanged, APIs can break consumers in surprising ways:</p>
+<ul>
+<li><strong>Semantic shifts</strong>: A field that used to mean “internal” or “external” suddenly gains new implications that require different client behavior</li>
+<li><strong>Default behavior changes</strong>: Switching from “replace entire list” to “merge” semantics on an update endpoint</li>
+<li><strong>Error model changes</strong>: Altering HTTP status codes or error body formats breaks downstream error handling</li>
+<li><strong>Optional → required fields</strong>: Making previously optional fields required causes existing clients to fail validation</li>
+<li><strong>Ordering assumptions</strong>: Changing default sort order, pagination, or filtering behavior</li>
+<li><strong>Stricter validation</strong>: Tightening rules to disallow characters that were previously accepted</li>
+</ul>
+<h3 id="2-database-schema-evolution">2. Database Schema Evolution</h3>
+<p>Database changes are classic sources of silent breakage:</p>
+<ul>
+<li><strong>Type changes</strong>: Converting an <code>int</code> to <code>varchar</code> or reinterpreting a status column’s meaning</li>
+<li><strong>Renamed or dropped columns</strong>: Queries may work initially through ORM caching, then fail under specific conditions</li>
+<li><strong>New constraints</strong>: Adding <code>NOT NULL</code>, unique, or foreign key constraints without aligning application code first</li>
+<li><strong>“Big bang” migrations</strong>: Attempting to change schema and code simultaneously</li>
+</ul>
+<p>The industry-standard pattern to avoid this is <strong>expand-migrate-contract</strong> (also called parallel change):</p>
 <ol>
-<li>
-<p><strong>Algorithmic Changes:</strong>
-Modifying underlying logic without updating documentation, proper communication, or corresponing tests failing.</p>
-</li>
-<li>
-<p><strong>Behavioral Changes:</strong>
-Changes in input or output expectations that produce an undesired behavior or a bug that is not addressed or documented</p>
-</li>
-<li>
-<p><strong>Side Effect Changes:</strong>
-Modifications to the code that impacts global state, interactions with other systems, unintended consequences in resource usage or dependencies or race conditions</p>
-</li>
+<li><strong>Expand</strong>: Add new columns/tables alongside old ones</li>
+<li><strong>Migrate</strong>: Dual-write, backfill data, gradually move reads to new schema</li>
+<li><strong>Contract</strong>: Remove old schema only after verifying no dependencies remain</li>
 </ol>
-<h2 id="strategies-for-identification">Strategies for Identification</h2>
+<p>This ensures backward compatibility at every step and makes rollbacks possible.</p>
+<h3 id="3-dependency-updates">3. Dependency Updates</h3>
+<p>This one’s particularly insidious. Research has found that roughly one-third of libraries claiming to follow semantic versioning introduced breaking changes in minor versions. For npm, studies running 75,913 test runs across 4,616 packages found at least 263 breaking changes from supposedly non-breaking dependency updates.
+I’ve seen this many times myself when bumping dependencies led to unexpected runtime errors in production, despite all tests passing. Or build failing, which is not silent, but still surprising when you expected a patch update to be safe.</p>
+<p>Common patterns:</p>
+<ul>
+<li><strong>Behavioral changes</strong>: Same method signature, different behavior</li>
+<li><strong>ABI incompatibility</strong>: Binary layout or calling convention changes in C++/C libraries causing crashes</li>
+<li><strong>Default configuration changes</strong>: New defaults that alter runtime behavior</li>
+<li><strong>Platform shifts</strong>: Upgrading runtime versions (JDK, Python, Node) that change edge case behaviors</li>
+</ul>
+<h3 id="4-microservices-contracts">4. Microservices Contracts</h3>
+<p>In distributed systems, contracts between services are a fertile ground for silent breakage:</p>
+<ul>
+<li><strong>Provider shape changes</strong>: Adding/removing fields or changing enum semantics</li>
+<li><strong>RPC drift</strong>: Tightly coupled gRPC/IDL systems where stubs are regenerated but consumer code isn’t updated</li>
+<li><strong>Event/message evolution</strong>: Changing message formats in queues without ensuring all consumers handle both versions</li>
+<li><strong>Side-effect changes</strong>: Altering timeout behavior, retry logic, or cascading calls</li>
+</ul>
+<p>This is exactly why Consumer-Driven Contract testing (CDC) exists-to let consumers define their expectations and validate providers against them.</p>
+<h3 id="5-machine-learning-models">5. Machine Learning Models</h3>
+<p>ML introduces a newer dimension of silent breaking changes that’s often overlooked:</p>
+<p>A new model might have higher overall accuracy but introduce new errors in places where the old model was correct. If downstream systems were tuned around the old model’s behavior, they can start failing unexpectedly.</p>
+<p>Researchers formalize this with metrics like:</p>
+<ul>
+<li><strong>Backward Trust Compatibility (BTC)</strong>: Percentage of previously correct predictions that remain correct</li>
+<li><strong>Backward Error Compatibility (BEC)</strong>: Fraction of new model’s errors that overlap with old model’s errors</li>
+</ul>
+<p>High accuracy but low BTC/BEC is a silent breaking change for downstream systems that depend on your model.</p>
+<h3 id="6-configuration-and-feature-flags">6. Configuration and Feature Flags</h3>
+<p>Operational changes can induce silent breakage without touching code:</p>
+<ul>
+<li><strong>Default flag flips</strong>: Changing feature flag values that alter validation or filtering logic</li>
+<li><strong>Rollout policy changes</strong>: Routing traffic to new implementations without behavior parity</li>
+<li><strong>Gateway configuration</strong>: New rate limits, timeout settings, or routing rules</li>
+</ul>
+<p>These are especially tricky because nothing about schemas, APIs, or binaries changes-only runtime behavior shifts.</p>
+<h2 id="how-to-catch-silent-breaking-changes">How to Catch Silent Breaking Changes</h2>
+<h3 id="1-static-diff-based-checks">1. Static Diff-Based Checks</h3>
+<p>Your first line of defense is comparing interfaces and schemas between versions:</p>
+<p><strong>For REST/OpenAPI:</strong></p>
+<ul>
+<li>Use tools like <code>oasdiff</code> to compare OpenAPI definitions and classify changes by severity</li>
+<li>Run <code>oasdiff breaking</code> in CI to fail builds on breaking changes</li>
+<li>Tools like Optic and Postman templates can enforce semantic diffs in your pipeline</li>
+</ul>
+<p><strong>For Protobuf/gRPC:</strong></p>
+<ul>
+<li>Use <code>buf breaking</code> to ensure new <code>.proto</code> definitions remain compatible</li>
+<li>Integrate with CI systems (GitHub Actions, GitLab, CircleCI) to catch issues in PRs</li>
+</ul>
+<p><strong>Language-specific checkers:</strong></p>
+<ul>
+<li><strong>Go</strong>: Tools like Modver diff modules and suggest version bumps</li>
+<li><strong>Kotlin/Java</strong>: Binary compatibility checkers compare public APIs between releases</li>
+</ul>
+<p>These catch syntactic changes, but behavioral changes require testing.</p>
+<h3 id="2-consumer-driven-contract-testing">2. Consumer-Driven Contract Testing</h3>
+<p>CDC tools like Pact help ensure providers stay compatible with consumer expectations:</p>
 <ol>
-<li>
-<p><strong>Thorough Testing:</strong></p>
-<ul>
-<li>Implement a lot of test suites that cover various scenarios, the more the merrier</li>
-<li>Include unit tests and integration tests to ensure different aspects of the code are validated.</li>
-<li>Update unit tests when fixing a bug to cover the case</li>
-</ul>
-</li>
-<li>
-<p><strong>Continuous Integration:</strong></p>
-<ul>
-<li>Integrate automated testing into your development workflow.</li>
-<li>Regularly run tests on different environments to catch discrepancies.</li>
-</ul>
-</li>
-<li>
-<p><strong>Code Reviews:</strong></p>
-<ul>
-<li>Conduct thorough code reviews to catch subtle changes.</li>
-<li>Foster team members to explicitly document any modifications made.</li>
-</ul>
-</li>
+<li>Consumers write tests using a mock provider and generate a contract file</li>
+<li>Providers verify their implementation satisfies all published contracts</li>
+<li>If providers break any consumer’s contract, CI fails</li>
 </ol>
-<h2 id="addressing-silent-breaking-changes">Addressing Silent Breaking Changes</h2>
-<h3 id="1-clear-documentation">1. <strong>Clear Documentation:</strong></h3>
+<p>This excels at catching silent breaking changes where the schema technically allows change, but consumers depend on specific behaviors.</p>
+<h3 id="3-regression-and-integration-testing">3. Regression and Integration Testing</h3>
+<p>Maintain regression suites that include:</p>
 <ul>
-<li>Document all changes, even minor ones.</li>
-<li>Use clear and concise language to explain modifications and their potential impact.</li>
+<li>Critical use cases and negative paths</li>
+<li>Tests for data shape changes (database/schema)</li>
+<li>Integration points between services</li>
+<li>Dependency update validation</li>
 </ul>
-<h3 id="2-semantic-versioning">2. <strong>Semantic Versioning:</strong></h3>
+<p>One powerful technique: run your dependent packages’ test suites across all minor/patch versions of dependencies. This is how researchers discovered those 263 breaking changes in npm. They ran tests and flagged when they went from passing to failing.</p>
+<h3 id="4-runtime-monitoring">4. Runtime Monitoring</h3>
+<p>Not all silent breaking changes can be caught pre-production. Mature teams use:</p>
 <ul>
-<li>Follow a versioning system like Semantic Versioning (SemVer).</li>
-<li>Clearly communicate breaking changes through version numbers.</li>
+<li><strong>API error monitoring</strong>: Watch for spikes in 4xx/5xx rates by endpoint and client version</li>
+<li><strong>Business KPI tracking</strong>: Monitor conversion rates, abandonment, and other metrics aligned to releases</li>
+<li><strong>Traffic shadowing</strong>: Route copies of production traffic to new versions and compare responses</li>
+<li><strong>Canary deployments</strong>: Roll out to small percentages and watch for anomalies</li>
 </ul>
-<h3 id="3-deprecation-warnings">3. <strong>Deprecation Warnings:</strong></h3>
+<p>For ML models specifically, measure BTC and BEC alongside accuracy to detect behavioral breaking changes.</p>
+<h3 id="5-the-human-element">5. The Human Element</h3>
+<p>Don’t underestimate thorough code reviews with explicit compatibility checklists:</p>
 <ul>
-<li>Introduce deprecation warnings for functions or features that will be phased out.</li>
-<li>Provide information on alternatives or recommended updates.</li>
+<li>Does this change remove/rename any public API or field?</li>
+<li>Does it alter semantics, defaults, or error behavior?</li>
+<li>Are there documented consumers relying on the old contract?</li>
+<li>Have we tested with real consumer versions?</li>
 </ul>
-<h3 id="4-communication-within-the-team">4. <strong>Communication within the Team:</strong></h3>
+<h2 id="prevention-building-compatibility-into-your-process">Prevention: Building Compatibility Into Your Process</h2>
+<h3 id="design-time-compatibility-rules">Design-Time Compatibility Rules</h3>
+<p>Define explicit rules for what’s allowed within a major version:</p>
+<p><strong>Generally safe (non-breaking):</strong></p>
 <ul>
-<li>Foster a culture of open communication within the development team.</li>
-<li>Encourage team members to discuss potential breaking changes during code reviews, stand-ups or regular meetings.</li>
+<li>Adding new optional fields or endpoints</li>
+<li>Adding enum values clients can ignore</li>
+<li>Adding optional query parameters</li>
 </ul>
-<h2 id="parting-thoughts">Parting Thoughts</h2>
-<p>Silent breaking changes can undermine the stability and reliability of codebases. Identifying and addressing these changes require a combination of solid testing practices, proactive communication, and following established development standards. By implementing these strategies, it’s possible to minimize the risk of silent breaking changes and ensure a smoother and more predictable development process.</p> </article> <ul class="my-8"> <li class="mb-4 mr-4 inline-block"> <a href="/tags/breaking changes/" class="hover:text-theme-accent whitespace-nowrap text-xl focus-visible:p-1" data-astro-transition-scope="astro-36ssibgs-2"> <span class="font-mono text-xl">#</span><span>breaking changes</span> </a> </li><li class="mb-4 mr-4 inline-block"> <a href="/tags/bugs/" class="hover:text-theme-accent whitespace-nowrap text-xl focus-visible:p-1" data-astro-transition-scope="astro-36ssibgs-3"> <span class="font-mono text-xl">#</span><span>bugs</span> </a> </li> </ul> <div class="flex flex-col-reverse items-center justify-between gap-6 sm:flex-row-reverse sm:items-end sm:gap-4"> <button id="backToTop" class="focus-outline flex items-center gap-1 whitespace-nowrap py-1 hover:text-theme-accent"> <span>Back to Top</span> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-chevron-up "><path d="M6 15l6 -6l6 6"></path></svg> </button> <div class="social-icons astro-wkojbtzc"> <span class="italic astro-wkojbtzc">Share this post on:</span> <div class="text-center astro-wkojbtzc"> <a class="group inline-block cursor-pointer underline-offset-8 hover:text-theme-accent hover:underline link-button astro-wkojbtzc" href="https://wa.me/?text=https://codelog.yy-dev.top/posts/silent-breaking-changes/" title="Share this post via WhatsApp">  <svg
+<p><strong>Forbidden (breaking within major version):</strong></p>
+<ul>
+<li>Removing or renaming fields, methods, or endpoints</li>
+<li>Changing field types or wire formats</li>
+<li>Moving fields into different structures</li>
+<li>Making optional fields required</li>
+<li>Tightening validation that rejects previously valid inputs</li>
+</ul>
+<p>Document hidden contracts like ordering, error codes, and default behaviors that clients may depend on.</p>
+<h3 id="versioning-strategies">Versioning Strategies</h3>
+<p>While Semantic Versioning (SemVer) is popular, you need internal definitions that reflect reality:</p>
+<ul>
+<li><strong>MAJOR</strong>: Incompatible API changes</li>
+<li><strong>MINOR</strong>: Backward-compatible new features</li>
+<li><strong>PATCH</strong>: Backward-compatible bug fixes</li>
+</ul>
+<p>Note: Some bug fixes alter behavior that clients depend on. These might need to be treated as breaking.</p>
+<p>For microservices and APIs:</p>
+<ul>
+<li>Use URI or header-based versioning (<code>/v1/...</code>, <code>/v2/...</code>)</li>
+<li>Provide long deprecation windows</li>
+<li>Support parallel versions during migration</li>
+</ul>
+<h3 id="cicd-guardrails">CI/CD Guardrails</h3>
+<p>Automate compatibility checks in your pipeline:</p>
+<ul>
+<li>Run <code>oasdiff breaking</code> on OpenAPI specs</li>
+<li>Run <code>buf breaking</code> on protobuf definitions</li>
+<li>Integrate CDC tests for critical microservice interactions</li>
+<li>Run regression tests with old client versions</li>
+<li>Execute dependent package test suites against new versions</li>
+</ul>
+<p>These should be release blockers, not warnings.</p>
+<h3 id="documentation-and-communication">Documentation and Communication</h3>
+<p><strong>Release notes matter:</strong></p>
+<ul>
+<li>Maintain explicit backward-incompatible sections</li>
+<li>Document required actions for integrators</li>
+<li>Provide migration guides</li>
+</ul>
+<p><strong>Deprecation policies:</strong></p>
+<ul>
+<li>Mark deprecated features clearly with timelines</li>
+<li>Provide tooling (lints, logs, warnings) to detect usage</li>
+<li>Give teams time to migrate before removal</li>
+</ul>
+<p><strong>Release candidate channels:</strong></p>
+<ul>
+<li>Expose changes early so integrators can test</li>
+<li>Platforms like Shopify’s REST Admin API do this well</li>
+</ul>
+<h3 id="organizational-patterns">Organizational Patterns</h3>
+<ul>
+<li><strong>Clear ownership</strong>: Assign accountability for APIs and schemas</li>
+<li><strong>Architecture reviews</strong>: Review high-risk changes before implementation</li>
+<li><strong>Compatibility SLOs</strong>: Make compatibility measurable (e.g., target BTC/BEC for ML models)</li>
+<li><strong>Cultural values</strong>: Make “no silent breaking changes” part of engineering principles</li>
+</ul>
+<h2 id="when-silent-breaking-changes-escape">When Silent Breaking Changes Escape</h2>
+<p>Even with strong prevention, some will reach production. Here’s how to respond:</p>
+<h3 id="1-detection-and-triage">1. Detection and Triage</h3>
+<ul>
+<li>Correlate anomalies with recent changes</li>
+<li>Segment by client version or environment</li>
+<li>Reproduce using captured logs or traffic replay</li>
+<li>Run post-hoc API diffs to pinpoint contract divergence</li>
+</ul>
+<h3 id="2-containment">2. Containment</h3>
+<ul>
+<li>Roll back the deployment or flip feature flags</li>
+<li>Use circuit breakers to isolate failures</li>
+<li>Leverage canary/blue-green deployments to limit blast radius</li>
+</ul>
+<h3 id="3-remediation">3. Remediation</h3>
+<ul>
+<li>Fix or provide compatibility shims</li>
+<li>Notify impacted consumers with migration guides</li>
+<li>If SemVer promises were violated, treat it as a bug and release a fix</li>
+</ul>
+<h3 id="4-learn-and-improve">4. Learn and Improve</h3>
+<ul>
+<li>Add regression tests for the broken scenario</li>
+<li>Strengthen contract tests or schema diffing</li>
+<li>Update compatibility guidelines and review checklists</li>
+</ul>
+<h2 id="a-practical-checklist">A Practical Checklist</h2>
+<p>Here’s what I recommend to teams:</p>
+<p><strong>Define what “breaking” means:</strong></p>
+<ul>
+<li>Document per domain (APIs, DB, libraries, ML)</li>
+<li>Include behavioral aspects, not just types</li>
+<li>Make it accessible to all engineers</li>
+</ul>
+<p><strong>Build CI/CD guardrails:</strong></p>
+<ul>
+<li>API/schema diff tools on every change</li>
+<li>CDC tests for critical interactions</li>
+<li>Language-specific compatibility checkers</li>
+</ul>
+<p><strong>Apply safe evolution patterns:</strong></p>
+<ul>
+<li>Expand-migrate-contract for schema changes</li>
+<li>Additive-only API design</li>
+<li>Measure BTC/BEC for ML models</li>
+</ul>
+<p><strong>Monitor production:</strong></p>
+<ul>
+<li>Error rates by endpoint and client version</li>
+<li>Business KPI dashboards aligned to releases</li>
+<li>Canary deployments with automatic rollback</li>
+</ul>
+<p><strong>Foster the right culture:</strong></p>
+<ul>
+<li>Make compatibility a first-class concern</li>
+<li>Include compatibility reviews in design processes</li>
+<li>Reward teams that maintain strong compatibility</li>
+</ul>
+<h2 id="final-thoughts">Final Thoughts</h2>
+<p>Silent breaking changes are fundamentally about mismatched expectations between components over time. The more widely consumed your interfaces, the more costly these mismatches become.</p>
+<p>I’ve learned (sometimes the hard way) that treating compatibility as a managed engineering discipline rather than an afterthought is one of the highest-leverage investments you can make. It’s not just about avoiding incidents: it’s about maintaining trust with the teams and customers who depend on your systems.</p>
+<p>The good news? You don’t have to implement everything at once. Start with the layer that’s causing you the most pain, add some automated checks, and build from there. Your future self (and your on-call rotation) will thank you.</p> </article> <ul class="my-8"> <li class="mb-4 mr-4 inline-block"> <a href="/tags/breaking changes/" class="hover:text-theme-accent whitespace-nowrap text-xl focus-visible:p-1" data-astro-transition-scope="astro-36ssibgs-2"> <span class="font-mono text-xl">#</span><span>breaking changes</span> </a> </li><li class="mb-4 mr-4 inline-block"> <a href="/tags/bugs/" class="hover:text-theme-accent whitespace-nowrap text-xl focus-visible:p-1" data-astro-transition-scope="astro-36ssibgs-3"> <span class="font-mono text-xl">#</span><span>bugs</span> </a> </li><li class="mb-4 mr-4 inline-block"> <a href="/tags/best-practices/" class="hover:text-theme-accent whitespace-nowrap text-xl focus-visible:p-1" data-astro-transition-scope="astro-36ssibgs-4"> <span class="font-mono text-xl">#</span><span>best-practices</span> </a> </li><li class="mb-4 mr-4 inline-block"> <a href="/tags/development/" class="hover:text-theme-accent whitespace-nowrap text-xl focus-visible:p-1" data-astro-transition-scope="astro-36ssibgs-5"> <span class="font-mono text-xl">#</span><span>development</span> </a> </li><li class="mb-4 mr-4 inline-block"> <a href="/tags/productivity/" class="hover:text-theme-accent whitespace-nowrap text-xl focus-visible:p-1" data-astro-transition-scope="astro-36ssibgs-6"> <span class="font-mono text-xl">#</span><span>productivity</span> </a> </li> </ul> <div class="flex flex-col-reverse items-center justify-between gap-6 sm:flex-row-reverse sm:items-end sm:gap-4"> <button id="backToTop" class="focus-outline flex items-center gap-1 whitespace-nowrap py-1 hover:text-theme-accent"> <span>Back to Top</span> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-chevron-up "><path d="M6 15l6 -6l6 6"></path></svg> </button> <div class="social-icons astro-wkojbtzc"> <span class="italic astro-wkojbtzc">Share this post on:</span> <div class="text-center astro-wkojbtzc"> <a class="group inline-block cursor-pointer underline-offset-8 hover:text-theme-accent hover:underline link-button astro-wkojbtzc" href="https://wa.me/?text=https://codelog.yy-dev.top/posts/silent-breaking-changes/" title="Share this post via WhatsApp">  <svg
       xmlns="http://www.w3.org/2000/svg"
       class="icon-tabler"
       stroke-linecap="round"
