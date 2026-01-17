@@ -15,11 +15,23 @@ Kasper-js is a work-in-progress JavaScript HTML template parser and renderer des
 
 [https://github.com/eugenioenko/kasper-js](https://github.com/eugenioenko/kasper-js)
 
+## Libra Chess
+
+Libra Chess is a UCI (Universal Chess Interface) compliant chess engine written in Go. The primary goal of Libra is to achieve a balance between high performance, modern software architecture, and clarity of design. This project serves as an exploration of chess engine development leveraging Go's unique strengths in concurrency, tooling, and efficient compilation.
+
+[https://github.com/eugenioenko/libra-chess](https://github.com/eugenioenko/libra-chess)
+
 ## Skedoodle
 
 Skedoodle is a real-time, interactive sketching and drawing tool that allows multiple users to connect, view, and edit the same board simultaneously. Designed for teams to brainstorm and visually collaborate. Built with Next.js, WebSocket, and Two.js, the platform delivers fast, responsive, and synchronized interactions across devices.
 
 [https://github.com/eugenioenko/skedoodle](https://github.com/eugenioenko/skedoodle)
+
+## Autentico
+
+Auténtico is an OpenID Connect (OIDC) authentication server built with Go, designed for developers seeking a lightweight, secure, and embeddable solution for modern identity management. It leverages SQLite for data persistence, ensuring easy integration and deployment.
+
+[https://github.com/eugenioenko/autentico](https://github.com/eugenioenko/autentico)
 
 ## Fire’n Ice
 
