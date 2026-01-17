@@ -1,0 +1,385 @@
+<!DOCTYPE html><html lang="en" class="scroll-smooth"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="canonical" href="https://codelog.yy-dev.top/posts/handling-tech-debt/"><meta name="generator" content="Astro v5.5.3"><!-- General Meta Tags --><title>The Art of Juggling Tech Debt While Shipping Features | CodeLog</title><meta name="title" content="The Art of Juggling Tech Debt While Shipping Features | CodeLog"><meta name="description" content="A practical, friendly guide to handling bugs, tech debt, and unexpected issues during feature development without losing your mind."><meta name="author" content="Eugene Yakhnenko"><link rel="sitemap" href="/sitemap-index.xml"><!-- Open Graph / Facebook --><meta property="og:title" content="The Art of Juggling Tech Debt While Shipping Features | CodeLog"><meta property="og:description" content="A practical, friendly guide to handling bugs, tech debt, and unexpected issues during feature development without losing your mind."><meta property="og:url" content="https://codelog.yy-dev.top/posts/handling-tech-debt/"><meta property="og:image" content="https://codelog.yy-dev.top/posts/handling-tech-debt/index.png"><!-- Article Published/Modified time --><meta property="article:published_time" content="2026-01-06T12:00:00.000Z"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://codelog.yy-dev.top/posts/handling-tech-debt/"><meta property="twitter:title" content="The Art of Juggling Tech Debt While Shipping Features | CodeLog"><meta property="twitter:description" content="A practical, friendly guide to handling bugs, tech debt, and unexpected issues during feature development without losing your mind."><meta property="twitter:image" content="https://codelog.yy-dev.top/posts/handling-tech-debt/index.png"><!-- Google JSON-LD Structured data --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"The Art of Juggling Tech Debt While Shipping Features | CodeLog","image":"https://codelog.yy-dev.top/posts/handling-tech-debt/index.png","datePublished":"2026-01-06T12:00:00.000Z","author":[{"@type":"Person","name":"Eugene Yakhnenko","url":"https://github.com/eugenioenko/"}]}</script><!-- Google Font --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Squada+One&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="preload" as="style" onload="this.onload=null; this.rel='stylesheet';" crossorigin><meta name="theme-color" content=""><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CMTcOisY.js"></script><script src="/scripts/toggle-theme.js" async></script><link rel="stylesheet" href="/_astro/about.CV207I6D.css">
+<style>@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media (prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+.social-icons:where(.astro-wkojbtzc){display:flex;flex-direction:column;flex-wrap:wrap;align-items:center;justify-content:center;gap:.25rem}@media (min-width: 640px){.social-icons:where(.astro-wkojbtzc){align-items:flex-start}}.link-button:where(.astro-wkojbtzc){--tw-scale-x: .9;--tw-scale-y: .9;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));padding:.5rem}.link-button:where(.astro-wkojbtzc):hover{--tw-rotate: 6deg;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@media (min-width: 640px){.link-button:where(.astro-wkojbtzc){padding:.25rem}}
+</style><style>[data-astro-transition-scope="astro-yb6n2ciq-1"] { view-transition-name: handling-tech-debt; }@layer astro { ::view-transition-old(handling-tech-debt) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(handling-tech-debt) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(handling-tech-debt) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(handling-tech-debt) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-yb6n2ciq-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-yb6n2ciq-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-yb6n2ciq-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-yb6n2ciq-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-yb6n2ciq-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-yb6n2ciq-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-yb6n2ciq-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-yb6n2ciq-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-2"] { view-transition-name: development; }@layer astro { ::view-transition-old(development) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(development) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(development) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(development) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-3"] { view-transition-name: tech-debt; }@layer astro { ::view-transition-old(tech-debt) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(tech-debt) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(tech-debt) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(tech-debt) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-4"] { view-transition-name: productivity; }@layer astro { ::view-transition-old(productivity) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(productivity) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(productivity) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(productivity) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-5"] { view-transition-name: best-practices; }@layer astro { ::view-transition-old(best-practices) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(best-practices) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(best-practices) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(best-practices) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head> <body> <div class="mx-auto flex min-h-dvh w-full max-w-3xl flex-col sm:px-6">  <header class="relative flex items-center border-b border-theme-line py-3 pl-4 pr-2 sm:px-0 sm:py-4"> <a href="/" class="flex items-center gap-2"> <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" class="h-auto w-8 sm:w-12"> <path d="M24 4.799v14.402A4.8 4.8 0 0 1 19.201 24H4.799A4.8 4.8 0 0 1 0 19.201V4.799A4.8 4.8 0 0 1 4.799 0h14.402A4.8 4.8 0 0 1 24 4.799z" id="logo-svg"></path> <path style="fill:none;fill-rule:nonzero" d="M0 0h24v24H0z"></path> <path d="m7 8-4 4 4 4M17 8l4 4-4 4M14 4l-4 16" style="fill:none;fill-rule:nonzero;stroke:#fff;stroke-width:1px"></path> </svg> <span class="md:text-3xl font-mono text-2xl">CodeLog</span> </a> <nav class="navigation flex grow items-center justify-end"> <button class="p-2 sm:hidden" id="menu-btn" role="menu" aria-controls="menu" aria-expanded="false" aria-haspopup="true"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-menu-2 "><path d="M4 6l16 0"></path><path d="M4 12l16 0"></path><path d="M4 18l16 0"></path></svg> </button> <ul id="menu" role="menu" aria-hidden="true" class="absolute z-50 flex flex-col sm:flex-row sm:static items-center gap-6 font-mono pb-6 sm:pb-0 top-20 bg-theme-fill left-0 right-0 transition-all overflow-hidden sm:overflow-visible inactive"> <li class="text-lg font-mono inline-flex items-center hover:text-theme-accent "> <a href="/posts/" class="inline-flex items-center "> Posts </a> </li> <li class="text-lg font-mono inline-flex items-center hover:text-theme-accent "> <a href="/projects/" class="inline-flex items-center "> Projects </a> </li> <li class="text-lg font-mono inline-flex items-center hover:text-theme-accent "> <a href="/tags/" class="inline-flex items-center "> Tags </a> </li> <li class="text-lg font-mono inline-flex items-center hover:text-theme-accent "> <a href="/about/" class="inline-flex items-center "> About </a> </li> <li class="text-lg font-mono inline-flex items-center hover:text-theme-accent "> <a href="/archives/" class="inline-flex items-center ">  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-archive "><path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path><path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10"></path><path d="M10 12l4 0"></path></svg> <span class="sm:hidden">Archive</span>  </a> </li> <li class="text-lg font-mono inline-flex items-center hover:text-theme-accent "> <a href="/search/" class="inline-flex items-center ">  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-search "><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path><path d="M21 21l-6 -6"></path></svg> <span class="sm:hidden">Search</span>  </a> </li> <li class="inline-flex items-center"> <button id="theme-btn" class="focus-outline inline-flex items-center" title="Toggles light & dark" aria-label="auto" aria-live="polite"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-moon " id="moon-svg"><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path></svg> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-sun " id="sun-svg"><path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"></path></svg> <span class="sm:hidden">Theme</span> </button> </li> </ul> </nav> </header> <main class="py-8"> <h1 class="text-2xl font-semibold text-theme-accent" data-astro-transition-scope="astro-yb6n2ciq-1"> The Art of Juggling Tech Debt While Shipping Features </h1> <div class="flex items-center justify-between"> <div class="flex items-center justify-between"> <div class="flex items-center gap-1"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-calendar-week "><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"></path><path d="M16 3v4"></path><path d="M8 3v4"></path><path d="M4 11h16"></path><path d="M7 14h.013"></path><path d="M10.01 14h.005"></path><path d="M13.01 14h.005"></path><path d="M16.015 14h.005"></path><path d="M13.015 17h.005"></path><path d="M7.01 17h.005"></path><path d="M10.01 17h.005"></path></svg> <time datetime="2026-01-06T12:00:00.000Z" class="text-sm">Jan 6, 2026</time> </div> </div> <a class="group inline-block cursor-pointer underline-offset-8 hover:text-theme-accent hover:underline hidden items-center justify-center gap-1 sm:flex" href="https://github.com/eugenioenko/codelog/edit/main/src/content/blog/handling-tech-debt" rel="noopener noreferrer" target="_blank"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-edit "><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"></path><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"></path><path d="M16 5l3 3"></path></svg><span class="text-sm italic">Suggest Changes</span> </a> </div> <article id="article" class="prose mx-auto mt-8 max-w-3xl"> <p>Picture this: You’re halfway through building that exciting new feature everyone’s been asking for. You’re in the zone. The code is flowing. And then… you discover a bug. Not in your new code—in the old system your feature depends on. What do you do? Fix it now? File a ticket and move on? Pretend you didn’t see it? Is it actually a bug or is it a bug in your understanding of the requirements?</p>
+<p>If you’ve been there (and honestly, who hasn’t?), you know this moment of choice happens constantly during development. The reality of building software isn’t a clean, linear path from requirements to deployment. It’s more like exploring a house where opening one door reveals three more doors you didn’t know existed, and sometimes those doors are stuck.</p>
+<p>Let’s talk about how to handle this reality without burning out, missing deadlines, or letting your codebase turn into a maintenance nightmare.</p>
+<h2 id="why-this-matters-more-than-you-think">Why This Matters More Than You Think</h2>
+<p>Here’s a sobering fact: when you switch from working on your feature to investigating that bug, it takes your brain about a good amount of time to fully get back into the zone afterward. Not the five minutes you hoped. For a team getting interrupted multiple times a day, that’s anywhere from 10-20 hours of lost productivity every week.</p>
+<p>And it’s not just about time. Studies show that interrupted tasks take twice as long to complete and contain twice as many errors. It’s a vicious cycle: poor code quality from interrupted work creates new bugs, which create more interruptions, which create more poor code.</p>
+<p>But here’s some good news: teams that handle these interruptions well don’t eliminate them (that’s impossible). They build systems to manage them efficiently.</p>
+<h2 id="first-things-first-not-everything-is-urgent">First Things First: Not Everything is Urgent</h2>
+<p>The fastest way to chaos is treating every discovered issue like a five-alarm fire. Most things aren’t. You need a simple way to decide what actually needs your attention right now.</p>
+<p>Here’s a framework that works:</p>
+<p><strong>P0/Critical</strong>: System crashes, data loss, security breaches. Drop everything.</p>
+<p><strong>P1/High</strong>: Significant features broken but workarounds exist. Handle this sprint or immediately after.</p>
+<p><strong>P2/Medium</strong>: Degraded experience but not blocking. Can wait until next sprint if needed.</p>
+<p><strong>P3/Low</strong>: Cosmetic issues, minor UX friction. Backlog material.</p>
+<p>The key word here is “actually.” Is this <em>actually</em> critical, or does it just feel urgent because you discovered it today?</p>
+<p>A helpful trick: use RICE scoring for the gray areas. Score each issue on Reach (how many users), Impact (how badly affected), Confidence (how sure you are), and Effort (how hard to fix). Then calculate: <code>(Reach × Impact × Confidence) / Effort</code>. Higher scores win. This removes emotion from the decision.</p>
+<h2 id="plan-for-the-unexpected-because-it-will-happen">Plan for the Unexpected (Because It Will Happen)</h2>
+<p>Here’s where some teams go wrong: they plan sprints as if nothing unexpected will happen. Every hour is allocated to planned work. When interruptions inevitably arrive, the sprint explodes.</p>
+<p>Successful teams build buffer into every sprint:</p>
+<ul>
+<li><strong>10-15% Corporate overhead</strong>: Meetings, emails, ceremonies</li>
+<li><strong>60-75% Planned work</strong>: Your actual features</li>
+<li><strong>10-15% Unplanned work</strong>: The buffer for surprises</li>
+</ul>
+<blockquote>
+<p>“But that means we’ll deliver less!”</p>
+</blockquote>
+<p>I hear you saying. Actually, no. You’ll deliver <em>more consistently</em> because you’re planning realistically. Some sprints, you’ll have fewer interruptions and pull ahead. Others, you’ll use the full buffer. Over time, it averages out—but without the constant feeling of failure.</p>
+<p>How much buffer do you need? It depends on the team, product, and environment: Track your actual interrupt load for a few sprints and adjust accordingly.</p>
+<h2 id="the-superman-strategy-protecting-focus-time">The Superman Strategy: Protecting Focus Time</h2>
+<p>For teams dealing with production systems or customer support, here’s a game-changer: the <strong>Superman rotation</strong>.</p>
+<p>Instead of spreading interrupts across everyone (death by a thousand distractions), one person handles all interrupts for a set period—a week, a sprint, whatever makes sense. Everyone else gets uninterrupted focus time.</p>
+<p>Yes, one person’s productivity takes a hit. But the rest of the team’s productivity <em>increases</em>, and the net result is usually positive. Plus, the Superman builds deep knowledge of system issues and common problems.</p>
+<p>Keys to making this work:</p>
+<ul>
+<li><strong>Rotate fairly</strong>: Nobody should be permanently on interrupt duty</li>
+<li><strong>Provide backup</strong>: Have a secondary person for escalation</li>
+<li><strong>Be realistic</strong>: Junior developers might need help; that’s okay</li>
+<li><strong>Give them side work</strong>: They can tackle documentation, tools, or admin tasks between interrupts</li>
+</ul>
+<h2 id="turn-fires-into-fireproofing">Turn Fires Into Fireproofing</h2>
+<p>The difference between reactive and proactive teams isn’t that proactive teams have fewer problems. It’s that they prevent the same problem from happening twice.</p>
+<p>After any major issue, follow this pipeline:</p>
+<ol>
+<li><strong>Fix the immediate problem</strong> (the symptom)</li>
+<li><strong>Conduct a quick Root Cause Analysis</strong> within 24-48 hours: Why did this happen? Was it missing tests? Unclear requirements? Architecture gap?</li>
+<li><strong>Create a prevention artifact</strong>: A runbook, automated test, monitoring rule, or architectural change</li>
+<li><strong>Track and prioritize improvements</strong>: Work the highest-impact, lowest-effort ones into your tech debt time</li>
+</ol>
+<p>Example: Payment processing bug blocks the team. Don’t just fix it, ask why your tests didn’t catch it. Should there be integration tests? Add them. Document the scenario. Set up monitoring. Now it won’t happen again.</p>
+<h2 id="protect-your-brain-reduce-context-switching">Protect Your Brain: Reduce Context Switching</h2>
+<p>Even well-managed interrupts cause context switching. Here’s how to minimize the damage:</p>
+<p><strong>Reserve focus time blocks</strong>: Many teams reserve specific hours as interrupt-free. No meetings, no Slack questions (unless production is literally on fire). Make it a team norm.</p>
+<p><strong>Set response time expectations</strong>:</p>
+<ul>
+<li>Interrupt now (call, DM): Production down, security breach</li>
+<li>Same-day response: Code reviews, sprint blockers (within 8 hours)</li>
+<li>Next-day response: General questions, non-urgent bugs (within 24 hours)</li>
+<li>Async only: Status updates, docs (no immediate response needed)</li>
+</ul>
+<p><strong>Limit work-in-progress</strong>: One or two active items per developer, maximum. Finish before starting new work. It feels slower but actually speeds things up.</p>
+<h2 id="the-missing-requirements-problem">The Missing Requirements Problem</h2>
+<p>Sometimes the “issue” isn’t a bug—it’s that you start building and realize the requirements were incomplete. This happens <em>constantly</em>. If you are not breaking things, you are not solving hard problems, and incomplete requirements are part of that.</p>
+<p>Three-tier response:</p>
+<ol>
+<li>
+<p><strong>Critical path clarification</strong>: If it blocks current work, pause and clarify immediately with your product owner. This should be a 30-minute conversation, not a three-day delay.</p>
+</li>
+<li>
+<p><strong>Scope decision</strong>: Is this part of the current feature? If yes, add it. If no, capture it for later.</p>
+</li>
+<li>
+<p><strong>Document for next time</strong>: Update your requirements template so this gap doesn’t recur.</p>
+</li>
+</ol>
+<p>Don’t fall into the false choice between “delay everything for perfect requirements” and “build something incomplete.” Address blocking gaps now; defer the rest.</p>
+<h2 id="measure-what-matters">Measure What Matters</h2>
+<p>How do you know if your interrupt management is working? Track:</p>
+<ul>
+<li><strong>Cycle time</strong>: How long from issue discovery to fix? Faster is better.</li>
+<li><strong>Deployment frequency</strong>: Are you shipping consistently or sporadically?</li>
+<li><strong>Bug escape rate</strong>: What percentage of bugs reach production?</li>
+<li><strong>Developer satisfaction</strong>: Survey your team on focus time and stress levels.</li>
+</ul>
+<p>If any of these are trending wrong, your process needs adjustment.</p>
+<h2 id="common-traps-to-avoid">Common Traps to Avoid</h2>
+<p><strong>Priority inflation</strong>: If 50% of your issues are “P0 critical,” your definitions are broken. Typically, 5-10% should be P0.</p>
+<p><strong>Treating interrupts as planning failure</strong>: They’re not. They’re inevitable in live software. The question is how you handle them.</p>
+<p><strong>Permanent interrupt duty</strong>: Rotate fairly or you’ll burn people out.</p>
+<p><strong>Skipping root cause analysis</strong>: Fixing the 20th payment bug without understanding why they keep happening means you’re firefighting forever. Take the time to prevent recurrence.</p>
+<p><strong>Process creep</strong>: Don’t add so much overhead that the meetings about interrupts are worse than the interrupts themselves.</p>
+<h2 id="start-simple">Start Simple</h2>
+<p>You don’t need to implement everything at once. Here is a simple four-week plan to get started:</p>
+<p><strong>Week 1</strong>:</p>
+<ul>
+<li>Define your priority levels and share with the team</li>
+<li>Reserve 10-20% of your sprint for unplanned work</li>
+<li>Start a weekly 15-minute triage meeting</li>
+</ul>
+<p><strong>Week 2-3</strong>:</p>
+<ul>
+<li>Try Superman rotation if your team handles interrupts</li>
+<li>Protect time blocks as focus time</li>
+<li>Set max 2 active items per developer</li>
+</ul>
+<p><strong>Week 4+</strong>:</p>
+<ul>
+<li>Do root cause analysis on major issues</li>
+<li>Track your metrics</li>
+<li>Adjust based on what you learn</li>
+</ul>
+<h2 id="the-bottom-line">The Bottom Line</h2>
+<p>Building software means dealing with unexpected issues. The question is not if unexpected issues will happen (they will), but rather when.</p>
+<p>Teams that excel at this aren’t more talented or better equipped. They just accept reality and build around it: clear prioritization, reserved capacity, focused triage, root cause prevention, and protected focus time.</p>
+<p>Your codebase will never be perfect. There will always be tech debt, bugs, and surprises. But with the right system, you can ship features, maintain quality, and keep your team healthy.</p>
+<p>The best time to start was yesterday. The second-best time is right now.</p> </article> <ul class="my-8"> <li class="mb-4 mr-4 inline-block"> <a href="/tags/development/" class="hover:text-theme-accent whitespace-nowrap text-xl focus-visible:p-1" data-astro-transition-scope="astro-36ssibgs-2"> <span class="font-mono text-xl">#</span><span>development</span> </a> </li><li class="mb-4 mr-4 inline-block"> <a href="/tags/tech-debt/" class="hover:text-theme-accent whitespace-nowrap text-xl focus-visible:p-1" data-astro-transition-scope="astro-36ssibgs-3"> <span class="font-mono text-xl">#</span><span>tech-debt</span> </a> </li><li class="mb-4 mr-4 inline-block"> <a href="/tags/productivity/" class="hover:text-theme-accent whitespace-nowrap text-xl focus-visible:p-1" data-astro-transition-scope="astro-36ssibgs-4"> <span class="font-mono text-xl">#</span><span>productivity</span> </a> </li><li class="mb-4 mr-4 inline-block"> <a href="/tags/best-practices/" class="hover:text-theme-accent whitespace-nowrap text-xl focus-visible:p-1" data-astro-transition-scope="astro-36ssibgs-5"> <span class="font-mono text-xl">#</span><span>best-practices</span> </a> </li> </ul> <div class="flex flex-col-reverse items-center justify-between gap-6 sm:flex-row-reverse sm:items-end sm:gap-4"> <button id="backToTop" class="focus-outline flex items-center gap-1 whitespace-nowrap py-1 hover:text-theme-accent"> <span>Back to Top</span> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-chevron-up "><path d="M6 15l6 -6l6 6"></path></svg> </button> <div class="social-icons astro-wkojbtzc"> <span class="italic astro-wkojbtzc">Share this post on:</span> <div class="text-center astro-wkojbtzc"> <a class="group inline-block cursor-pointer underline-offset-8 hover:text-theme-accent hover:underline link-button astro-wkojbtzc" href="https://wa.me/?text=https://codelog.yy-dev.top/posts/handling-tech-debt/" title="Share this post via WhatsApp">  <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="icon-tabler"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"></path>
+      <path d="M9 10a0.5 .5 0 0 0 1 0v-1a0.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a0.5 .5 0 0 0 0 -1h-1a0.5 .5 0 0 0 0 1"></path>
+    </svg> <span class="sr-only astro-wkojbtzc">Share this post via WhatsApp</span>  </a><a class="group inline-block cursor-pointer underline-offset-8 hover:text-theme-accent hover:underline link-button astro-wkojbtzc" href="https://www.facebook.com/sharer.php?u=https://codelog.yy-dev.top/posts/handling-tech-debt/" title="Share this post on Facebook">  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="icon-tabler"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path
+      d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3"
+    ></path>
+  </svg> <span class="sr-only astro-wkojbtzc">Share this post on Facebook</span>  </a><a class="group inline-block cursor-pointer underline-offset-8 hover:text-theme-accent hover:underline link-button astro-wkojbtzc" href="https://x.com/intent/post?url=https://codelog.yy-dev.top/posts/handling-tech-debt/" title="Share this post on X">  <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="icon-tabler"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
+    </svg> <span class="sr-only astro-wkojbtzc">Share this post on X</span>  </a><a class="group inline-block cursor-pointer underline-offset-8 hover:text-theme-accent hover:underline link-button astro-wkojbtzc" href="https://t.me/share/url?url=https://codelog.yy-dev.top/posts/handling-tech-debt/" title="Share this post via Telegram">  <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="icon-tabler"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4"></path>
+      </svg> <span class="sr-only astro-wkojbtzc">Share this post via Telegram</span>  </a><a class="group inline-block cursor-pointer underline-offset-8 hover:text-theme-accent hover:underline link-button astro-wkojbtzc" href="https://pinterest.com/pin/create/button/?url=https://codelog.yy-dev.top/posts/handling-tech-debt/" title="Share this post on Pinterest">  <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="icon-tabler"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <line x1="8" y1="20" x2="12" y2="11"></line>
+      <path d="M10.7 14c.437 1.263 1.43 2 2.55 2c2.071 0 3.75 -1.554 3.75 -4a5 5 0 1 0 -9.7 1.7"></path>
+      <circle cx="12" cy="12" r="9"></circle>
+    </svg> <span class="sr-only astro-wkojbtzc">Share this post on Pinterest</span>  </a><a class="group inline-block cursor-pointer underline-offset-8 hover:text-theme-accent hover:underline link-button astro-wkojbtzc" href="mailto:?subject=See%20this%20post&#38;body=https://codelog.yy-dev.top/posts/handling-tech-debt/" title="Share this post via email">  <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="icon-tabler"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+      <polyline points="3 7 12 13 21 7"></polyline>
+    </svg> <span class="sr-only astro-wkojbtzc">Share this post via email</span>  </a> </div> </div>  </div> <hr class="mt-4 border-dashed"> <div class="py-6"> <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">  <a href="/posts/javascript-proxy-reflect-api" class="flex w-full items-center justify-end gap-1 text-right hover:text-theme-accent sm:col-start-2"> <div> <span>Next Post</span> <div class="text-theme-accent/85 text-sm">JavaScript Proxy and Reflect API: Intercepting Object Operations</div> </div> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right flex-none">  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path> <path d="M9 6l6 6l-6 6"></path>  </svg> </a> </div> </div> <footer class="mt-auto w-full px-4 sm:px-0 astro-sz7xmlte"> <div class="footer-wrapper astro-sz7xmlte"> <div class="social-icons flex astro-upu6fzxr"> <a class="group inline-block cursor-pointer underline-offset-8 hover:text-theme-accent hover:underline hover:text-accent astro-upu6fzxr" href="https://github.com/eugenioenko" title=" CodeLog on Github">  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="icon-tabler"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path
+      d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"
+    ></path>
+  </svg> <span class="sr-only astro-upu6fzxr"> CodeLog on Github</span>  </a><a class="group inline-block cursor-pointer underline-offset-8 hover:text-theme-accent hover:underline hover:text-accent astro-upu6fzxr" href="https://www.instagram.com/eugenioenko/" title="CodeLog on Instagram">  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="icon-tabler"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <rect x="4" y="4" width="16" height="16" rx="4"></rect>
+    <circle cx="12" cy="12" r="3"></circle>
+    <line x1="16.5" y1="7.5" x2="16.5" y2="7.501"></line>
+  </svg> <span class="sr-only astro-upu6fzxr">CodeLog on Instagram</span>  </a><a class="group inline-block cursor-pointer underline-offset-8 hover:text-theme-accent hover:underline hover:text-accent astro-upu6fzxr" href="https://www.linkedin.com/in/eyakhnenko/" title="CodeLog on LinkedIn">  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="icon-tabler"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+    <line x1="8" y1="11" x2="8" y2="16"></line>
+    <line x1="8" y1="8" x2="8" y2="8.01"></line>
+    <line x1="12" y1="16" x2="12" y2="11"></line>
+    <path d="M16 16v-3a2 2 0 0 0 -4 0"></path>
+  </svg> <span class="sr-only astro-upu6fzxr">CodeLog on LinkedIn</span>  </a> </div>  <div class="copyright-wrapper astro-sz7xmlte"> <span class="astro-sz7xmlte">Copyright &#169; 2026</span> <span class="separator astro-sz7xmlte">&nbsp;|&nbsp;</span> <span class="astro-sz7xmlte">All rights reserved</span> </div> </div> </footer>  </main> <script src="/scripts/post-details.js" data-astro-rerun></script>  </div> </body></html>
