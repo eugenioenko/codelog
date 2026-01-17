@@ -6,18 +6,19 @@
 
 :root,
 html[data-theme="light"] {
-  --color-fill: rgb(230, 230, 230);
+  --color-fill: rgb(216, 216, 216);
   --color-text-base: rgb(29, 29, 29);
   --color-accent: rgba(199, 11, 99, 1);
-  --color-card: rgba(230, 230, 230, 1);
-  --color-card-muted: rgba(205, 205, 205, 1);
+  --color-card: rgb(243, 243, 243);
+  --color-card-muted: rgb(192, 59, 121);
   --color-border: rgb(210, 210, 210);
 }
+
 html[data-theme="dark"] {
-  --color-fill: rgb(34, 40, 49);
+  --color-fill: rgb(31, 33, 36);
   --color-text-base: rgba(234, 237, 243, 1);
   --color-accent: rgb(255, 87, 34);
-  --color-card: rgba(52, 63, 96, 1);
+  --color-card: rgb(34, 40, 49);
   --color-card-muted: rgba(138, 51, 2, 1);
   --color-accent: rgb(255, 87, 34);
 }
@@ -25,6 +26,7 @@ html[data-theme="dark"] {
 #logo-svg {
   fill: var(--color-accent);
 }
+
 #sun-svg,
 html[data-theme="dark"] #moon-svg {
   display: none;
@@ -41,8 +43,9 @@ body {
 
 section,
 footer {
-  @apply mx-auto max-w-3xl;
+  @apply mx-auto max-w-[52rem];
 }
+
 a {
   @apply outline-2 outline-offset-1 outline-theme-fill focus-visible:no-underline focus-visible:outline-dashed;
 }
@@ -84,12 +87,13 @@ main {
 pre:has(code) {
   @apply border border-theme-line !text-base;
 }
+
 code,
 blockquote {
   word-wrap: break-word;
 }
 
-pre > code {
+pre>code {
   white-space: pre;
 }
 

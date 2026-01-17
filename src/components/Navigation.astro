@@ -32,7 +32,7 @@ function toggleMenu() {
     id="menu"
     role="menu"
     aria-hidden="true"
-    class={`absolute z-50 flex flex-col sm:flex-row sm:static items-center gap-6 font-mono pb-6 sm:pb-0 top-20 bg-theme-fill left-0 right-0 transition-all overflow-hidden sm:overflow-visible ${isOpen ? "active" : "inactive"}`}
+    class={`absolute z-50 flex flex-col sm:flex-row sm:static items-center gap-6 font-mono pb-6 sm:pb-0 top-20 bg-theme-card left-0 right-0 transition-all overflow-hidden sm:overflow-visible ${isOpen ? "active" : "inactive"}`}
   >
     <NavigationItem href="posts" active={active}>Posts</NavigationItem>
     <NavigationItem href="projects" active={active}>Projects</NavigationItem>
