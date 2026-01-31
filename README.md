@@ -1,24 +1,39 @@
-# CodeLog 🚀
+# CodeLog
 
-Welcome to your personal tech blog repository! This project is built using Astro, a modern static site generator optimized for performance and simplicity. Share your technical insights, tutorials, and ideas in a beautifully designed, fast, and SEO-friendly blog.
+Welcome to CodeLog — a personal tech blog by Eugene.
 
-### > [Live Preview Here](https://codelog.yy-dev.top)
+This project is my digital space to share what I learn, build, and discover as a software engineer. Here, you’ll find my thoughts on modern web development, tutorials, best practices, and stories from my journey in tech. My goal is to make complex topics approachable and to help others grow, whether you’re just starting out or have years of experience.
 
-## Features
+## What’s Inside
 
-- Blazing Fast: Powered by Astro, delivering static HTML for ultra-fast load times.
-- Markdown Support: Write your posts in Markdown for simplicity and flexibility.
-- Customizable: Easily update the design with your own styles and layouts.
-- Responsive Design: Works seamlessly across desktop, tablet, and mobile devices.
-- SEO-Optimized: Built-in best practices to help your blog rank higher in search engines.
+- Personal insights and lessons from real-world projects
+- Tutorials on web development, frameworks, and tools
+- Best practices for writing clean, maintainable code
+- Experiments with new technologies and ideas
 
-## Runing locally
+## Getting Started
 
-```
+To run the blog locally:
+
+```bash
 pnpm install
 pnpm dev
 ```
 
-## 📜 License
+Then open your browser at `http://localhost:4321`.
 
-Licensed under the MIT License, Copyright © 2025
+## Tech Stack
+
+- Astro (static site generator)
+- Tailwind CSS (for styling)
+- TypeScript
+
+## Why CodeLog?
+
+I created CodeLog to document my growth, connect with other developers, and give back to the community. I believe in sharing knowledge openly and learning together.
+
+If you find something useful here, or just want to say hi, feel free to reach out or open an issue.
+
+## License
+
+MIT License © 2025
