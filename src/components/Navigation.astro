@@ -6,15 +6,9 @@ import {
   IconSearch,
   IconSun,
 } from "@tabler/icons-react";
-import LinkButton from "./LinkButton.astro";
 import NavigationItem from "./NavigationItem.astro";
 
 const { active } = Astro.props;
-let isOpen = false;
-
-function toggleMenu() {
-  isOpen = !isOpen;
-}
 ---
 
 <nav class="navigation flex grow items-center justify-end">
@@ -32,7 +26,7 @@ function toggleMenu() {
     id="menu"
     role="menu"
     aria-hidden="true"
-    class={`absolute z-50 flex flex-col sm:flex-row sm:static items-center gap-6 font-mono pb-6 sm:pb-0 top-20 bg-theme-card left-0 right-0 transition-all overflow-hidden sm:overflow-visible ${isOpen ? "active" : "inactive"}`}
+    class={`absolute z-50 flex flex-col sm:flex-row sm:static items-center gap-6 font-mono pb-6 sm:pb-0 top-20 bg-theme-card left-0 right-0 transition-all overflow-hidden sm:overflow-visible`}
   >
     <NavigationItem href="posts" active={active}>Posts</NavigationItem>
     <NavigationItem href="projects" active={active}>Projects</NavigationItem>

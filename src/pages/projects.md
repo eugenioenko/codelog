@@ -44,4 +44,3 @@ Fire'n Ice is a work-in-progress remake of the classic NES game, bringing nostal
 @script is an interpreter written in typescript of a scripting language somewhat similar to javascript which borrows some ideas from python
 
 [https://github.com/eugenioenko/interpreter](https://github.com/eugenioenko/interpreter)
-

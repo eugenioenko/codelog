@@ -8,7 +8,7 @@ tags:
   - video
   - streaming
   - hls
-  - http 
+  - http
   - interceptor
   - javascript
   - react
@@ -24,6 +24,7 @@ When building video streaming applications, you might need to intercept HTTP req
 HLS.js is a JavaScript library that enables HTTP Live Streaming (HLS) playback in browsers that don't natively support it. While Safari handles HLS natively, browsers like Chrome, Firefox, and Edge need HLS.js to parse `.m3u8` playlists and stream video fragments seamlessly.
 
 The library handles:
+
 - Parsing HLS manifests (`.m3u8` files)
 - Downloading and buffering video segments
 - Adaptive bitrate switching based on network conditions
@@ -68,7 +69,7 @@ export function HlsPlayer() {
 
 ## Implementing a Custom HTTP Interceptor
 
-The real power comes when you need to intercept fragment requests. 
+The real power comes when you need to intercept fragment requests.
 Create a custom loader by extending `Hls.DefaultConfig.loader`:
 
 ```tsx
@@ -82,8 +83,7 @@ class CustomLoader extends Hls.DefaultConfig.loader {
       super.load(context, config, callbacks);
     }
   }
-};
-
+}
 ```
 
 The `context.frag` check distinguishes between playlist requests (handled by the default loader) and video fragment requests (where we apply custom logic).
@@ -95,16 +95,16 @@ Here's how to fetch fragments with custom handling:
 ```tsx
 async function fetchVideoFragment(callbacks: any, context: any) {
   const start = performance.now();
-  
+
   try {
     const response = await fetch(context.url, {
       // Add custom headers here if needed
       headers: {
-        'Authorization': '{{ Bearer token }}',
-        'X-Custom-Header': '{{Custom value}}'
-      }
+        Authorization: "{{ Bearer token }}",
+        "X-Custom-Header": "{{Custom value}}",
+      },
     });
-    
+
     const buffer = await response.arrayBuffer();
     const end = performance.now();
 
@@ -132,6 +132,7 @@ async function fetchVideoFragment(callbacks: any, context: any) {
 ```
 
 This approach lets you:
+
 - Add authentication tokens to fragment requests
 - Decrypt encrypted video segments
 - Track loading performance metrics
