@@ -93,7 +93,7 @@ blockquote {
   word-wrap: break-word;
 }
 
-pre>code {
+pre > code {
   white-space: pre;
 }
 
@@ -146,4 +146,8 @@ nav.navigation li.active {
     max-height: 1000px;
     @apply border-b border-theme-line;
   }
+}
+
+.card-container {
+  @apply md:px-12 mx-auto flex min-h-dvh w-full max-w-[52rem] flex-col bg-theme-card sm:px-6;
 }

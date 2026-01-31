@@ -38,6 +38,7 @@ const config = Object.freeze({ url: "https://url.com" });
 ## Why Object.freeze()?
 
 The Object.freeze() method ensures that:
+
 - No new properties can be added.
 - Existing properties cannot be removed or modified.
 - The object’s prototype remains unchanged.
