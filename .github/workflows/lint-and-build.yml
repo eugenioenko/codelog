@@ -23,7 +23,5 @@ jobs:
         run: pnpm lint
       - name: Format
         run: pnpm format
-      - name: Lint again
-        run: pnpm lint
       - name: Build
         run: pnpm build
