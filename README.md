@@ -1,5 +1,7 @@
 # CodeLog
 
+[**🌐 Visit CodeLog**](https://codelog.yy-dev.top/)
+
 Welcome to CodeLog! A personal tech blog by Eugene.
 
 This project is my digital space to share what I learn, build, and discover as a software engineer. Here, you’ll find my thoughts on modern web development, tutorials, best practices, and stories from my journey in tech. My goal is to make complex topics approachable and to help others grow, whether you’re just starting out or have years of experience.
