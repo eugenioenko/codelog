@@ -135,6 +135,15 @@ const structuredData = {
     <ViewTransitions />
 
     <script is:inline src="/scripts/toggle-theme.js" async></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LH328WLJWE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-LH328WLJWE');
+    </script>
   </head>
   <body>
     <div class="mx-auto flex min-h-dvh w-full max-w-[52rem] flex-col px-6 sm:px-12 bg-theme-card">
