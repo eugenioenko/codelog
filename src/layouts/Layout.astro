@@ -63,6 +63,11 @@ const structuredData = {
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
 
+    <meta
+      name="google-site-verification"
+      content="E2Zin4UgAf6nr6FQFlLIEVN4DmxcCuQHQjsiVfSNdk8"
+    />
+
     <!-- General Meta Tags -->
     <title>{title}</title>
     <meta name="title" content={title} />
@@ -102,15 +107,18 @@ const structuredData = {
     <meta property="twitter:image" content={socialImageURL} />
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LH328WLJWE"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LH328WLJWE"
+    ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-      gtag('config', 'G-LH328WLJWE');
+      gtag("config", "G-LH328WLJWE");
     </script>
-    
+
     <!-- Google JSON-LD Structured data -->
     <script
       type="application/ld+json"
