@@ -1,6 +1,6 @@
 ---
 auth: Eugene Yakhnenko
-title: "Our config file is already a type definition. You're just not using it that way."
+title: "Type-Level Library Dependency Injection. Let the Consumer App Define the API"
 pubDatetime: 2026-02-28T12:00:00Z
 featured: true
 slug: config-to-type-pipeline
@@ -11,12 +11,51 @@ tags:
 description: "A look at how three TypeScript primitives you already have can eliminate an entire class of silent runtime bugs across feature flags, translations, environment variables, and design tokens — with no codegen, no CLI, and no type engine."
 ---
 
-I want to show you a bug that has shipped in almost every production codebase I've worked in.
+Over the last few years, across different teams and codebases, I kept seeing the same category of production issue under different names:
+
+- A feature flag typo silently disabling a paywall.
+- A translation key mismatch rendering blank UI.
+- An environment variable renamed in config but still referenced in code.
+
+Each incident looked different. Different teams. Different tools. Different root causes.
+
+But structurally, they were identical.
+
+The application code was making an assumption about configuration — and nothing in the system enforced that the assumption was valid.
+
+These are configuration-contract violations:
+runtime behavior depending on keys or values that are defined elsewhere, with no compile-time enforcement tying the two together.
+
+Most teams address this reactively:
+
+- Add runtime validation.
+- Add integration tests.
+- Add review checklists.
+- Add codegen.
+- Add schemas.
+
+Each solution targets a specific surface area — flags, i18n, env, tokens — but the underlying failure mode is the same: the contract boundary between “config” and “code” is implicit.
+
+We kept solving the symptoms independently.
+
+Eventually the pattern became obvious: this wasn’t a flags problem or an i18n problem. It was a contract ownership problem.
+
+Libraries were defining the API surface. Applications were defining the configuration. The two were coupled at runtime but disconnected at compile time.
+
+So the question became:
+
+What if the consumer application owned the contract entirely — and the library derived its API from it?
+
+Just using the type system and the module resolver we already had.
+
+The result is a small inversion in dependency direction that eliminates an entire class of configuration-contract violations at compile time with zero additional tooling.
+
+I want to show you a bug that has shipped in almost every production codebase.
 
 It doesn't throw. It doesn't warn. It just silently does the wrong thing — and depending on which version of it you're dealing with, you might not notice for days.
 
 ```ts
-useFlag('premiumFeaure')
+useFlag("premiumFeaure");
 ```
 
 One transposed letter. The flag doesn't exist, so it returns `false`, and your entire premium gate is permanently open to everyone. No error. No log. TypeScript is fine with it because `useFlag` accepts `string`, and `'premiumFeaure'` is a perfectly valid string.
@@ -30,7 +69,7 @@ By the time you find it, it's been in production for a week.
 Here's the thing: we've known how to solve this for years. You could write a union type:
 
 ```ts
-type FlagKey = 'darkMode' | 'betaEditor' | 'premiumFeature';
+type FlagKey = "darkMode" | "betaEditor" | "premiumFeature";
 ```
 
 Now `useFlag` only accepts valid flag names. Typos are caught at compile time.
@@ -76,11 +115,22 @@ resolve: {
 }
 ```
 
-This is the piece that makes the pattern composable. A library can import from `@app/flags` and the *consumer's* config file is what actually gets loaded — including its types.
+This is the piece that makes the pattern composable. A library can import from `@app/flags` and the _consumer's_ config file is what actually gets loaded — including its types.
 
 Put the three together and something interesting happens.
 
----
+## When the Consumer Defines the Types
+
+Inverting the Library–App Contract in TypeScript
+
+Most libraries define the contract. They decide what values are valid and the consumer conforms. This pattern flips the dependency: the consumer owns the config; the library imports that config (via a module alias) and derives its types from it. The consumer becomes the single source of truth for both runtime behavior and compile-time types.
+
+```ts
+// vite.config.ts — the alias makes the library's import resolve to the consumer file at build time
+resolve: {
+  alias: { '@app/flags': '/src/flags.config.ts' }
+}
+```
 
 ## The config file is the type definition
 
@@ -97,7 +147,7 @@ export const flags = {
 
 ```ts
 // library: derives a type from whatever the consumer's config exports
-import type { flags } from '@app/flags';
+import type { flags } from "@app/flags";
 export type FlagKey = keyof typeof flags;
 
 export function useFlag(key: FlagKey): boolean {
@@ -107,8 +157,8 @@ export function useFlag(key: FlagKey): boolean {
 
 ```ts
 // your app: usage
-useFlag('betaEditor')    // ✓
-useFlag('premiumFeaure') // ✗ Argument of type '"premiumFeaure"' is not assignable to parameter of type '"darkMode" | "betaEditor" | "premiumFeature"'
+useFlag("betaEditor"); // ✓
+useFlag("premiumFeaure"); // ✗ Argument of type '"premiumFeaure"' is not assignable to parameter of type '"darkMode" | "betaEditor" | "premiumFeature"'
 ```
 
 The library never hardcodes your flag names. It imports your config through the alias and derives the types from it. When you add a flag, the type updates automatically. When you remove one, every stale callsite fails to compile.
@@ -124,44 +174,54 @@ The flags example is clean because you own both sides — the config and the usa
 Take a design system. You're building a `Button` component and you need to decide what `size` accepts. You have a few options:
 
 **Option 1: Hardcode it.**
+
 ```ts
-type ButtonSize = 'sm' | 'md' | 'lg';
+type ButtonSize = "sm" | "md" | "lg";
 ```
+
 Good for your own team. Terrible for everyone else. One team needs `xs` and `xl`. Another has a design system with exactly two sizes. A third one uses t-shirt sizes in Spanish. They all either adapt their design to your arbitrary choices or they fork the component.
 
 **Option 2: Accept `string`.**
+
 ```ts
 interface ButtonProps {
   size?: string;
 }
 ```
+
 Now anyone can pass anything. `"gigantic"` compiles fine. `"meduim"` compiles fine. You've made the component flexible and completely unsafe at the same time.
 
 **Option 3: Generics.**
+
 ```ts
 function Button<T extends string>({ size }: { size?: T }) { ... }
 ```
-This preserves whatever type the caller passes, but it doesn't actually constrain to *valid* values. If the caller passes `"gigantic"`, TypeScript happily infers `T = "gigantic"`. You've just reflected the input type back, not validated against anything.
+
+This preserves whatever type the caller passes, but it doesn't actually constrain to _valid_ values. If the caller passes `"gigantic"`, TypeScript happily infers `T = "gigantic"`. You've just reflected the input type back, not validated against anything.
 
 None of these are good. The real problem is that **the library author cannot know what values are valid** — that's the consumer's decision. So the type can't live in the library.
 
-The module alias flips the dependency. Instead of the library defining the contract and the consumer conforming to it, the consumer defines their config and the library derives its types *from that*:
+The module alias flips the dependency. Instead of the library defining the contract and the consumer conforming to it, the consumer defines their config and the library derives its types _from that_:
 
 ```ts
 // library — types are derived from whatever the consumer exports
-import type { yarcl } from '@yarcl/config';
+import type { yarcl } from "@yarcl/config";
 type ButtonSize = keyof typeof yarcl.button.sizes;
 
 // consumer A — two sizes
-export const yarcl = { button: { sizes: { sm: '36px', lg: '52px' } } } as const;
+export const yarcl = { button: { sizes: { sm: "36px", lg: "52px" } } } as const;
 // ButtonSize = "sm" | "lg"
 
 // consumer B — five sizes
-export const yarcl = { button: { sizes: { xs: '28px', sm: '36px', md: '44px', lg: '52px', xl: '60px' } } } as const;
+export const yarcl = {
+  button: {
+    sizes: { xs: "28px", sm: "36px", md: "44px", lg: "52px", xl: "60px" },
+  },
+} as const;
 // ButtonSize = "xs" | "sm" | "md" | "lg" | "xl"
 ```
 
-Both consumers use the same library. Both get a `Button` component typed to *their* sizes. If consumer A tries `<Button size="xl" />` it's a TS error. If consumer B removes `xl` from their config, every usage breaks immediately.
+Both consumers use the same library. Both get a `Button` component typed to _their_ sizes. If consumer A tries `<Button size="xl" />` it's a TS error. If consumer B removes `xl` from their config, every usage breaks immediately.
 
 The library author doesn't make the call. They just wire up the derivation.
 
@@ -174,10 +234,10 @@ Each entry in the config is a key and a value. The key becomes the type. The val
 export const yarcl = {
   button: {
     sizes: {
-      'talla-s':  '32px',
-      'talla-m':  '44px',
-      'talla-l':  '56px',
-      'talla-xl': '68px',
+      "talla-s": "32px",
+      "talla-m": "44px",
+      "talla-l": "56px",
+      "talla-xl": "68px",
     },
   },
 } as const;
@@ -204,13 +264,13 @@ I built this out for the design system case and then realized the same three pri
 
 ```ts
 export const translations = {
-  en: { 'nav.home': 'Home', 'button.submit': 'Submit' },
-  es: { 'nav.home': 'Inicio', 'button.submit': 'Enviar' },
+  en: { "nav.home": "Home", "button.submit": "Submit" },
+  es: { "nav.home": "Inicio", "button.submit": "Enviar" },
 } as const;
 
-const { t } = useTranslation('en');
-t('nav.home')  // ✓ "Home"
-t('nav.hme')   // ✗ TS error
+const { t } = useTranslation("en");
+t("nav.home"); // ✓ "Home"
+t("nav.hme"); // ✗ TS error
 ```
 
 For context: i18next has TypeScript support, but it requires you to write a separate `.d.ts` file with module augmentation, import your JSON resources, and declare them in a `CustomTypeOptions` interface. It works, but it's a second file to maintain, and it only covers translations. This pattern covers everything with the same mechanism.
@@ -219,12 +279,12 @@ For context: i18next has TypeScript support, but it requires you to write a sepa
 
 ```ts
 export const envSchema = {
-  VITE_API_URL: '',
-  VITE_APP_NAME: '',
+  VITE_API_URL: "",
+  VITE_APP_NAME: "",
 } as const;
 
-env.VITE_API_URL  // ✓
-env.VITE_TYPO     // ✗ TS error
+env.VITE_API_URL; // ✓
+env.VITE_TYPO; // ✗ TS error
 ```
 
 Undeclared variables aren't accessible. Remove one from the schema and every usage breaks immediately, not at runtime when the value is `undefined` and something downstream explodes.
@@ -253,7 +313,7 @@ The category of bug this eliminates is what I'd call a **configuration-contract 
 
 Runtime validation (Zod, etc.) catches it when the app runs. Integration tests catch it if you've written the right test. Code review catches it if someone notices. This pattern catches it before you finish typing the line.
 
-The interesting thing is that it's not a new technique — it's a new *connection* between techniques. `as const` is six years old. Module aliases have been in bundlers forever. `keyof typeof` is basic TypeScript. Nobody had put them together this way because each problem (flags, translations, env, design tokens) was being solved independently by dedicated tools, each with their own approach.
+The interesting thing is that it's not a new technique — it's a new _connection_ between techniques. `as const` is six years old. Module aliases have been in bundlers forever. `keyof typeof` is basic TypeScript. Nobody had put them together this way because each problem (flags, translations, env, design tokens) was being solved independently by dedicated tools, each with their own approach.
 
 ---
 
