@@ -2,7 +2,7 @@
 auth: Eugene Yakhnenko
 title: "The Art of Juggling Tech Debt While Shipping Features"
 pubDatetime: 2026-01-06T12:00:00Z
-featured: true
+featured: false
 slug: handling-tech-debt
 tags:
   - development
