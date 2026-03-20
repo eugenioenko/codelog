@@ -1,6 +1,6 @@
 ---
 auth: Eugene Yakhnenko
-title: "Adding Attribute-Based Access Control to a Real-Time Collaborative App with OpenTDF"
+title: "Adding ABAC Authorization to a Real-Time Collaborative App with OpenTDF"
 pubDatetime: 2026-03-19T12:00:00Z
 featured: true
 slug: adding-abac-to-skedoodle-with-opentdf
@@ -10,6 +10,8 @@ tags:
   - opentdf
   - authorization
   - real-time-collaboration
+  - authz
+  - authorization
 description: "How I added attribute-based access control to Skedoodle, an open-source real-time collaborative sketching app, using OpenTDF. Covering database-backed sharing, WebSocket enforcement, and centralized ABAC policy decisions, all built in a single afternoon with an AI coding agent."
 ---
 
