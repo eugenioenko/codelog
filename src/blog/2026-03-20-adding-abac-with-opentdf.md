@@ -23,7 +23,7 @@ I needed to fix this. And I wanted to do it with a system that could scale beyon
 
 ## Why OpenTDF
 
-I looked at several options for adding authorization, from hand-rolling role checks to integrating a dedicated policy engine. I landed on [OpenTDF](https://github.com/opentdf/platform), an open-source platform maintained by [Virtru](https://www.virtru.com/) that provides attribute-based access control (ABAC) alongside end-to-end encryption via the [Trusted Data Format](https://github.com/opentdf/spec) specification.
+I looked at several options for adding authorization, from hand-rolling role checks to integrating a dedicated policy engine. I landed on [OpenTDF](https://opentdf.io/), an open-source platform maintained by [Virtru](https://www.virtru.com/) that provides attribute-based access control (ABAC) alongside end-to-end encryption via the [Trusted Data Format](https://github.com/opentdf/spec) specification.
 
 What drew me in was how **lightweight the authorization integration is**. OpenTDF is known for its encryption capabilities, but the ABAC engine stands entirely on its own. You don't need to encrypt anything to use it. You define policies, and the platform makes access decisions. That's exactly what I needed: a centralized policy engine that could answer "does this user have access to this sketch?" based on attributes rather than hardcoded role checks.
 
@@ -81,7 +81,7 @@ model SketchCollaborator {
 
 Three endpoints handle the sharing workflow:
 
-```
+```plaintext
 POST   /api/sketches/:id/collaborators      Owner invites by username
 DELETE /api/sketches/:id/collaborators/:uid  Owner removes, or user leaves
 GET    /api/sketches/:id/collaborators       List who has access
@@ -111,7 +111,7 @@ The client handles this gracefully with a dialog explaining what happened and op
 
 This is where OpenTDF adds value beyond what the database alone provides. On server startup, the service registers Skedoodle's policy structure:
 
-```
+```yaml
 Namespace: https://skedoodle.com
 Attribute: sketch-access (rule: AnyOf)
 ```
@@ -187,6 +187,6 @@ The OpenTDF integration itself (registering the namespace, creating attributes, 
 
 ## Try It
 
-The OpenTDF integration lives in a dedicated fork: [skedoodle-opentdf](https://github.com/eugenioenko/skedoodle-opentdf). It includes everything you need to run the full stack locally: Skedoodle, Keycloak, and the OpenTDF platform. The original [Skedoodle](https://github.com/eugenioenko/skedoodle) repo stays lightweight with no ABAC dependencies.
+The OpenTDF integration lives in a dedicated fork: [skedoodle-opentdf](https://github.com/eugenioenko/skedoodle-opentdf). It includes everything you need to run the full stack locally.
 
-If you're building an app that needs access control beyond basic ownership, especially if you need centralized policy management, auditability, or the flexibility to evolve your authorization model without rewriting code, ABAC with OpenTDF is worth a look.
+If you're building an app that needs access control beyond basic ownership, especially if you need centralized policy management, auditability, or the flexibility to evolve your authorization model without rewriting code, ABAC with [OpenTDF](https://opentdf.io/) is worth a look.
