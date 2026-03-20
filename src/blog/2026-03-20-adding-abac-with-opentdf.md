@@ -13,7 +13,10 @@ tags:
 description: "How I added attribute-based access control to Skedoodle, an open-source real-time collaborative sketching app, using OpenTDF. Covering database-backed sharing, WebSocket enforcement, and centralized ABAC policy decisions, all built in a single afternoon with an AI coding agent."
 ---
 
-I built [Skedoodle](https://github.com/eugenioenko/skedoodle), an open-source real-time collaborative sketching app. Think a lightweight Figma for doodling: multiple users connect over WebSocket, draw on a shared infinite canvas, and see each other's cursors move in real time. It's built with React, TypeScript, Two.js for vector graphics, and Zustand for state management, with an Express backend handling persistence and real-time sync.
+I built [Skedoodle](https://github.com/eugenioenko/skedoodle), an open-source real-time collaborative sketching app.
+Think a lightweight Figma for doodling: multiple users connect over WebSocket, draw on a shared infinite canvas, and see each other's cursors move in real time.
+It uses event sourcing under the hood, so every stroke and edit is captured as an immutable command in an append-only log. That gives you full history, time travel, and the ability to branch from any point.
+It's built with React, TypeScript, Two.js for vector graphics, and Zustand for state management, with an Express backend handling persistence and real-time sync.
 
 Building the interactive parts was the fun challenge. Throttled rendering at 60fps, path simplification algorithms to keep stroke data lean, touch support, pan and zoom on an infinite canvas, undo/redo that works across multiple collaborators. Skedoodle is a proper interactive app, not a toy demo.
 
