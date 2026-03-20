@@ -1,7 +1,7 @@
 ---
 auth: Eugene Yakhnenko
 title: "Adding Attribute-Based Access Control to a Real-Time Collaborative App with OpenTDF"
-pubDatetime: 2026-03-20T12:00:00Z
+pubDatetime: 2026-03-19T12:00:00Z
 featured: true
 slug: adding-abac-to-skedoodle-with-opentdf
 tags:
