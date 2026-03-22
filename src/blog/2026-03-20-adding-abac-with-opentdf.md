@@ -14,11 +14,7 @@ tags:
   - authorization
 description: "How I added attribute-based access control to Skedoodle, an open-source real-time collaborative sketching app, using OpenTDF. Covering database-backed sharing, WebSocket enforcement, and centralized ABAC policy decisions, all built in a single afternoon with an AI coding agent."
 ---
-
-I built [Skedoodle](https://github.com/eugenioenko/skedoodle), an open-source real-time collaborative sketching app.
-Think a lightweight Figma for doodling: multiple users connect over WebSocket, draw on a shared infinite canvas, and see each other's cursors move in real time.
-It uses event sourcing under the hood, so every stroke and edit is captured as an immutable command in an append-only log. That gives you full history, time travel, and the ability to branch from any point.
-It's built with React, TypeScript, Two.js for vector graphics, and Zustand for state management, with an Express backend handling persistence and real-time sync.
+I built [Skedoodle](https://github.com/eugenioenko/skedoodle), an open-source real-time collaborative sketching app. Think a lightweight Figma for doodling: multiple users connect over WebSocket, draw on a shared infinite canvas, and see each other's cursors move in real time. It's built with React, TypeScript, Two.js for vector graphics, and Zustand for state management, with an Express backend handling persistence and real-time sync.
 
 Building the interactive parts was the fun challenge. Throttled rendering at 60fps, path simplification algorithms to keep stroke data lean, touch support, pan and zoom on an infinite canvas, undo/redo that works across multiple collaborators. Skedoodle is a proper interactive app, not a toy demo.
 
@@ -62,9 +58,9 @@ The answer was yes. The agent:
 
 - Read the OpenTDF docs and **correctly chose ABAC authorization over full TDF encryption**, understanding that per-command encryption would be impractical for real-time collaboration
 - Designed an attribute scheme (one attribute value per sketch, AnyOf rule) that maps cleanly to the sharing model
-- Built the entire integration: database migration, REST API, WebSocket authorization, OpenTDF service, and client UI
+- Built the entire integration: database schema, REST API, WebSocket authorization, OpenTDF service with subject mapping lifecycle, and client UI
 
-The architecture was right from the start. I pointed the agent at the docs, described the access model I wanted, and it delivered a working integration. There were a couple of minor hiccups along the way, like an API enum format and a URL path, but nothing that took more than a few minutes to sort out.
+The architecture was right from the start. I pointed the agent at the docs, described the access model I wanted, and it delivered a working integration. There were a couple of minor hiccups along the way, like a deprecated action enum format in the docs and entity identifier fields, but nothing that took more than a few minutes to sort out.
 
 ## How the Integration Works
 
@@ -74,12 +70,13 @@ A `SketchCollaborator` table tracks who has access to what:
 
 ```prisma
 model SketchCollaborator {
-  id        String   @id @default(cuid())
-  sketchId  String
-  userId    String
-  role      String   @default("collaborator") // "owner" or "collaborator"
-  sketch    Sketch   @relation(...)
-  user      User     @relation(...)
+  id               String   @id @default(cuid())
+  sketchId         String
+  userId           String
+  role             String   @default("collaborator") // "owner" or "collaborator"
+  subjectMappingId String?  // OpenTDF subject mapping ID for ABAC cleanup
+  sketch           Sketch   @relation(...)
+  user             User     @relation(...)
   @@unique([sketchId, userId])
 }
 ```
@@ -98,12 +95,15 @@ Every access check (REST API, WebSocket join, command submission) queries this t
 
 Real-time collaboration makes authorization tricky. You can't call a policy service on every brush stroke. The solution:
 
-1. **Authorize on join**: when a user connects, check their role and assign it to their session
+1. **Authorize on join**: when a user connects, check their role in the database, then verify access through OpenTDF's `GetDecisions` API
 2. **Enforce at the room level**: viewers can observe but not send commands
-3. **Kick on revocation**: when access is removed via the API, immediately disconnect the user
+3. **Kick on revocation**: when access is removed via the API, immediately disconnect the user and clean up the subject mapping
 
 ```typescript
 // When an owner removes a collaborator
+await opentdfService.deleteSubjectMapping(targetCollab.subjectMappingId);
+opentdfService.invalidateAccessCache(targetCollab.user.username, sketchId);
+
 const room = rooms.get(sketchId);
 if (room) {
   room.kickClient(targetUserId); // Sends 'access-revoked', closes socket
@@ -121,17 +121,57 @@ Namespace: https://skedoodle.com
 Attribute: sketch-access (rule: AnyOf)
 ```
 
-Each sketch gets its own attribute value. When a user requests access, the server can call OpenTDF's `GetDecisions` API:
+Each sketch gets its own attribute value. But unlike a static policy, the subject mappings are **actively managed** as part of the application lifecycle:
+
+- **Sketch created**: register an attribute value for the sketch, create a subject mapping for the owner
+- **Collaborator invited**: create a subject mapping linking the user's Keycloak username to the sketch's attribute value
+- **Collaborator removed**: delete the subject mapping, invalidate the decision cache
+- **WebSocket join**: call `GetDecisions` to verify the user has a valid entitlement
+
+Here's how a subject mapping is created when a user is invited:
+
+```typescript
+const result = await rpc(
+  "policy.subjectmapping.SubjectMappingService",
+  "CreateSubjectMapping",
+  {
+    attributeValueId: valueId,
+    actions: [{ name: "read" }],
+    newSubjectConditionSet: {
+      subjectSets: [
+        {
+          conditionGroups: [
+            {
+              booleanOperator: "CONDITION_BOOLEAN_TYPE_ENUM_OR",
+              conditions: [
+                {
+                  subjectExternalSelectorValue: ".username",
+                  operator: "SUBJECT_MAPPING_OPERATOR_ENUM_IN",
+                  subjectExternalValues: [username],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  }
+);
+```
+
+This tells the platform: when a user's Keycloak `.username` matches, grant them the sketch's attribute value entitlement.
+
+And here's the access check on WebSocket join:
 
 ```typescript
 const result = await rpc("authorization.AuthorizationService", "GetDecisions", {
   decisionRequests: [
     {
-      actions: [{ standard: "STANDARD_ACTION_TRANSMIT" }],
+      actions: [{ name: "read" }],
       entityChains: [
         {
           id: "user",
-          entities: [{ emailAddress: userOidcSub }],
+          entities: [{ userName: username }],
         },
       ],
       resourceAttributes: [
@@ -147,7 +187,7 @@ const result = await rpc("authorization.AuthorizationService", "GetDecisions", {
 const allowed = result.decisionResponses?.[0]?.decision === "DECISION_PERMIT";
 ```
 
-Decisions are cached for 30 seconds to avoid latency on WebSocket operations. The design is **dual enforcement**: the database check is the primary gate, and OpenTDF is the policy layer. If the platform is unreachable, the app falls back gracefully.
+Decisions are cached for 30 seconds to avoid latency on repeated operations. The design is **dual enforcement**: the database check determines the user's role, and OpenTDF verifies they have a valid policy entitlement. If the platform is unreachable, the app falls back gracefully to the database check alone.
 
 ## Why This Architecture Matters
 
@@ -172,19 +212,19 @@ The entire integration took **one afternoon**:
 | ---------------------------------------------------- | ------ |
 | Switch identity provider to Keycloak                 | 15 min |
 | Create Keycloak client + test users                  | 10 min |
-| Database migration + collaborator API                | 15 min |
+| Database schema + collaborator API                   | 15 min |
 | WebSocket authorization + kick-on-revoke             | 15 min |
 | Client UI (share dialog, access denied, role badges) | 20 min |
 | OpenTDF ABAC service integration                     | 15 min |
 | Debugging and polish                                 | 20 min |
 
-The OpenTDF integration itself (registering the namespace, creating attributes, wiring up `GetDecisions`) was the smallest piece. Most of the work was building the sharing UX and enforcing access at the WebSocket layer. OpenTDF slotted in cleanly because it's designed to be an authorization service you call, not a framework you restructure your app around.
+The OpenTDF integration itself (registering the namespace, creating attributes, managing subject mappings, wiring up `GetDecisions`) was the smallest piece. Most of the work was building the sharing UX and enforcing access at the WebSocket layer. OpenTDF slotted in cleanly because it's designed to be an authorization service you call, not a framework you restructure your app around.
 
 ## Key Takeaways
 
 **ABAC layers on top of what you have.** You don't need to rip out existing access control. Start with your database-backed checks, add OpenTDF as the policy layer, and migrate decision-making to ABAC as your requirements grow.
 
-**The integration surface is small.** Four API calls covered everything: create namespace, create attribute, create attribute value, get decisions. OpenTDF's Connect RPC API is straightforward to call from any language.
+**The integration surface is small.** Six API calls covered everything: create namespace, create attribute, create attribute value, create subject mapping, delete subject mapping, and get decisions. OpenTDF's Connect RPC API is straightforward to call from any language with plain `fetch`.
 
 **Real-time apps need a caching strategy.** You can't hit an authorization service on every WebSocket message. Authorize on connect, cache decisions with a short TTL, and handle revocation proactively.
 
@@ -192,6 +232,6 @@ The OpenTDF integration itself (registering the namespace, creating attributes, 
 
 ## Try It
 
-The OpenTDF integration lives in a dedicated fork: [skedoodle-opentdf](https://github.com/eugenioenko/skedoodle-opentdf). It includes everything you need to run the full stack locally.
+The [OpenTDF](https://opentdf.io/) integration lives in a dedicated fork: [skedoodle-opentdf](https://github.com/eugenioenko/skedoodle-opentdf). It includes everything you need to run the full stack locally.
 
 If you're building an app that needs access control beyond basic ownership, especially if you need centralized policy management, auditability, or the flexibility to evolve your authorization model without rewriting code, ABAC with [OpenTDF](https://opentdf.io/) is worth a look.
