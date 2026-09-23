@@ -60,13 +60,13 @@ Then I ran the same benchmarks on a modern Ryzen 7 desktop. 16 cores, faster sin
 
 I constrained Autentico to 2 cores and started adding 2-core workers: 2+2, 2+2+2, all the way up to 2+7x2. On the i5, throughput had kept climbing with each worker up to 6 cores. On the Ryzen:
 
-| Config | iter/s | Login p95 |
-|--------|--------|-----------|
-| 2 server + 2 worker | 15.4/s | 3.61s |
-| 2 server + 4 worker | 15.4/s | 3.68s |
-| 2 server + 6 worker | 15.2/s | 3.58s |
-| 2 server + 10 worker | 15.0/s | 3.60s |
-| 2 server + 14 worker | 14.7/s | 3.76s |
+| Config               | iter/s | Login p95 |
+| -------------------- | ------ | --------- |
+| 2 server + 2 worker  | 15.4/s | 3.61s     |
+| 2 server + 4 worker  | 15.4/s | 3.68s     |
+| 2 server + 6 worker  | 15.2/s | 3.58s     |
+| 2 server + 10 worker | 15.0/s | 3.60s     |
+| 2 server + 14 worker | 14.7/s | 3.76s     |
 
 Flat. Five configurations, 2 to 14 worker cores, and throughput barely moved. Adding workers did nothing.
 
@@ -92,13 +92,13 @@ It's persistent. Set it once and every future connection inherits it. No applica
 
 Results at 200 virtual users, 30 seconds:
 
-| Cores | Without WAL | With WAL | Improvement |
-|-------|-------------|----------|-------------|
-| 1 | 13.4 iter/s | 16.7 iter/s | +25% |
-| 2 | 23.6 iter/s | 31.3 iter/s | +33% |
-| 4 | 32.2 iter/s | 49.8 iter/s | +55% |
-| 6 | 33.0 iter/s | 54.3 iter/s | +65% |
-| 8 | 31.9 iter/s | 50.2 iter/s | +57% |
+| Cores | Without WAL | With WAL    | Improvement |
+| ----- | ----------- | ----------- | ----------- |
+| 1     | 13.4 iter/s | 16.7 iter/s | +25%        |
+| 2     | 23.6 iter/s | 31.3 iter/s | +33%        |
+| 4     | 32.2 iter/s | 49.8 iter/s | +55%        |
+| 6     | 33.0 iter/s | 54.3 iter/s | +65%        |
+| 8     | 31.9 iter/s | 50.2 iter/s | +57%        |
 
 One pragma. No code changes. Up to 65% throughput improvement. But WAL alone hits a ceiling around 6 cores and actually regresses past that.
 
@@ -127,12 +127,12 @@ func (d *DB) Query(query string, args ...any) (*sql.Rows, error) {
 
 This also required some iteration. The first attempt was slower due to a bug where pooled connections weren't getting their PRAGMA settings. Once fixed:
 
-| Cores | WAL Only | WAL + Pool Split | Improvement |
-|-------|----------|------------------|-------------|
-| 4 | 49.8 iter/s | 57.0 iter/s | +14% |
-| 6 | 54.3 iter/s | 76.1 iter/s | +40% |
-| 8 | 50.2 iter/s | 88.3 iter/s | +76% |
-| unlimited | 45.9 iter/s | 101.4 iter/s | +121% |
+| Cores     | WAL Only    | WAL + Pool Split | Improvement |
+| --------- | ----------- | ---------------- | ----------- |
+| 4         | 49.8 iter/s | 57.0 iter/s      | +14%        |
+| 6         | 54.3 iter/s | 76.1 iter/s      | +40%        |
+| 8         | 50.2 iter/s | 88.3 iter/s      | +76%        |
+| unlimited | 45.9 iter/s | 101.4 iter/s     | +121%       |
 
 Where WAL alone plateaus and regresses, the pool split keeps scaling. At 500 virtual users over 60 seconds, the pool split delivered 3.5x the throughput of the main branch with 59-78% latency reduction across all endpoints. Zero errors on both configurations.
 
@@ -150,7 +150,7 @@ Verifico didn't ship. The benchmarks on the Ryzen showed it wasn't solving a rea
 
 ## What I Learned
 
-**Profiling tells the truth, but only about the machine you're sitting at.** I should have known better. In my early years I spent time writing x86 assembly with FASM, where you learn that certain instructions cost more clock cycles than others and that two CPUs at the same clock speed can have very different real-world performance thanks to pipeline optimizations, L1/L2/L3 cache differences, and branch prediction. I knew hardware isn't uniform. What I didn't expect was that the *scaling behavior* would change. I assumed that if adding worker cores improved throughput on one machine, it would improve throughput on another, maybe at different absolute numbers but with the same shape. Instead, the Ryzen's faster per-core bcrypt performance shifted the bottleneck entirely. The curve wasn't the same shape at a different scale. It was a different curve.
+**Profiling tells the truth, but only about the machine you're sitting at.** I should have known better. In my early years I spent time writing x86 assembly with FASM, where you learn that certain instructions cost more clock cycles than others and that two CPUs at the same clock speed can have very different real-world performance thanks to pipeline optimizations, L1/L2/L3 cache differences, and branch prediction. I knew hardware isn't uniform. What I didn't expect was that the _scaling behavior_ would change. I assumed that if adding worker cores improved throughput on one machine, it would improve throughput on another, maybe at different absolute numbers but with the same shape. Instead, the Ryzen's faster per-core bcrypt performance shifted the bottleneck entirely. The curve wasn't the same shape at a different scale. It was a different curve.
 
 **The boring fix usually wins.** WAL mode is in the SQLite documentation. Connection pooling is a well-understood pattern. Together they more than doubled throughput. Neither required novel architecture.
 

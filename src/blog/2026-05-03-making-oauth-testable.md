@@ -117,7 +117,6 @@ The tests also verify security properties:
 
 Each of these tests runs against the real flow. The assertion that tokens are not in storage is meaningful because real tokens were actually issued and processed. The assertion about state mismatch is meaningful because a real authorization request was initiated with a real state parameter.
 
-
 ## Running tests across frameworks
 
 Because the core is framework-agnostic and each adapter is a thin wrapper, the same test suite runs against every framework. The same spec file tests React, Angular, Vue, Svelte, Lit, Solid, and Preact. Each framework gets its own dev server on an isolated port, its own Autentico instance on a separate port, and its own database.

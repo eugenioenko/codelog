@@ -18,7 +18,7 @@ The [source is on GitHub](https://github.com/eugenioenko/ttt) and I develop it w
 
 ## The problem
 
-I was deep in revamping the widget system and building out a Lua plugin API. Phases of work stacking up -- widget rendering, panel support, tree views, input fields, command registration, keybinding hooks. The kind of work where you need to *see* what's happening. Click a tree node, check if it expands. Open a panel, verify focus moves correctly. Run a plugin, confirm the dialog appears.
+I was deep in revamping the widget system and building out a Lua plugin API. Phases of work stacking up -- widget rendering, panel support, tree views, input fields, command registration, keybinding hooks. The kind of work where you need to _see_ what's happening. Click a tree node, check if it expands. Open a panel, verify focus moves correctly. Run a plugin, confirm the dialog appears.
 
 Here's the thing: Claude Code can run shell commands and read files. It cannot interact with a live TUI session. The editor launches, takes over the terminal, and that's it -- Claude is blind.
 
@@ -85,16 +85,16 @@ bin/ttt --size 120x40 --exec "wait 200; screenshot /tmp/s1.txt; click 10 5; wait
 
 The supported commands:
 
-| Command | What it does |
-|---------|-------------|
-| `click X Y` | Simulate a mouse click |
-| `key COMBO` | Simulate a key press (`ctrl+p`, `enter`, etc.) |
-| `type TEXT` | Type a string character by character |
-| `exec "Command"` | Run a command by title |
-| `screenshot PATH` | Dump screen text to a file |
-| `debug PATH` | Dump full state JSON (widget tree, focus, etc.) |
-| `wait MS` | Wait milliseconds |
-| `quit` | Exit |
+| Command           | What it does                                    |
+| ----------------- | ----------------------------------------------- |
+| `click X Y`       | Simulate a mouse click                          |
+| `key COMBO`       | Simulate a key press (`ctrl+p`, `enter`, etc.)  |
+| `type TEXT`       | Type a string character by character            |
+| `exec "Command"`  | Run a command by title                          |
+| `screenshot PATH` | Dump screen text to a file                      |
+| `debug PATH`      | Dump full state JSON (widget tree, focus, etc.) |
+| `wait MS`         | Wait milliseconds                               |
+| `quit`            | Exit                                            |
 
 Now Claude can do this in a single bash command:
 
@@ -114,7 +114,11 @@ The `debug` command captures everything you'd want to assert on:
   "cursor": { "line": 5, "col": 10 },
   "buffer": { "path": "file.go", "lines": 42, "modified": false },
   "focus": "editor",
-  "sidebar": { "visible": true, "active": "explorer", "panels": ["explorer", "search", "changes"] },
+  "sidebar": {
+    "visible": true,
+    "active": "explorer",
+    "panels": ["explorer", "search", "changes"]
+  },
   "bottom_panel": { "visible": false, "active": "output" },
   "tabs": [{ "path": "file.go", "modified": false }],
   "selection": { "active": false },

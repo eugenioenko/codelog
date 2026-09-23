@@ -40,7 +40,6 @@ I reviewed 10 RFCs and specs across the OAuth2 and OIDC ecosystem, tracking ever
 
 This gave me confidence in the spec compliance of the implementation. But spec compliance and security are not the same thing.
 
-
 ## Traditional scanning: OWASP ZAP
 
 I ran an OWASP ZAP API scan (both authenticated and unauthenticated) against 169 URLs. The results were useful but shallow:
@@ -51,7 +50,6 @@ I ran an OWASP ZAP API scan (both authenticated and unauthenticated) against 169
 I fixed everything in one PR. Final ZAP results: **0 FAIL, 112 PASS, 4 WARN** (all informational). Clean bill of health from the scanner.
 
 ZAP tests what it can see from the outside: headers, status codes, common injection patterns. It doesn't understand OAuth flows, MFA logic, or token lifecycle. For that, I needed something different.
-
 
 ## Enter go-appsec/toolbox
 
@@ -103,6 +101,7 @@ After I shared my experience, the toolbox author ran their own session against A
 ### MFA enforcement bypass (#172)
 
 This one is the best example of what AI-assisted testing can find that scanners can't. MFA enforcement had four independent gaps that reinforced each other:
+
 - The password grant issued tokens without any MFA challenge, even when `require_mfa` was enabled
 - Pre-MFA sessions weren't invalidated when the policy changed
 - An attacker with a bearer token could rotate a user's TOTP secret without presenting a valid OTP code
@@ -114,7 +113,7 @@ No single gap is obvious in isolation. Finding them requires reasoning about the
 
 The `AuthenticateUser()` function didn't check `deactivated_at`, while every other user lookup in the codebase did. A soft-deleted user could authenticate via the password grant and receive fresh tokens indefinitely. The admin who deleted the user would have no idea. This is a one-line fix (`AND deactivated_at IS NULL`) but finding it requires noticing the inconsistency across query patterns.
 
-### Admin API audience validation bypass (#183)                                                                                                                                                      
+### Admin API audience validation bypass (#183)
 
 The admin API only checked that the user had the admin role. Any token belonging to an admin user was accepted regardless of which client issued it. A malicious app registered with the IdP could trick an admin into authorizing it, then replay that token against the admin API for full control. The fix enforces that tokens must also include admin audience in their audience claim, which only tokens issued through the admin client carry by default.
 
@@ -128,11 +127,11 @@ The admin API only checked that the user had the admin role. Any token belonging
 
 I tested my OAuth2 provider with three approaches:
 
-| Approach | What it found | Depth |
-|----------|--------------|-------|
-| **OIDC Conformance Suite** | Spec compliance gaps | Protocol-level |
-| **OWASP ZAP** | Missing headers, error handling | Surface-level |
-| **go-appsec/toolbox + AI** | 10 vulnerabilities including auth bypass, MFA gaps, SSRF | Logic-level |
+| Approach                   | What it found                                            | Depth          |
+| -------------------------- | -------------------------------------------------------- | -------------- |
+| **OIDC Conformance Suite** | Spec compliance gaps                                     | Protocol-level |
+| **OWASP ZAP**              | Missing headers, error handling                          | Surface-level  |
+| **go-appsec/toolbox + AI** | 10 vulnerabilities including auth bypass, MFA gaps, SSRF | Logic-level    |
 
 The traditional tools did their job. They confirmed my implementation followed the specs and had standard security headers in place. But the logic-level vulnerabilities (the ones that actually matter for an identity provider) only surfaced when an AI agent could reason about how the pieces fit together.
 

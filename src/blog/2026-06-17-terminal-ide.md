@@ -74,17 +74,20 @@ Your agent works. You review. Same context, same window.
 TTT is a single Go binary with zero runtime dependencies.
 
 **macOS:**
+
 ```sh
 brew tap eugenioenko/ttt
 brew install ttt
 ```
 
 **Linux:**
+
 ```sh
 curl -fsSL https://raw.githubusercontent.com/eugenioenko/ttt/main/install.sh | bash
 ```
 
 **From source:**
+
 ```sh
 git clone https://github.com/eugenioenko/ttt.git
 cd ttt

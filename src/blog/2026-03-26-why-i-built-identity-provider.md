@@ -30,7 +30,7 @@ Months later, when I needed a lightweight Identity Provider, I evaluated the pop
 - **Casdoor:** I didn't like how they treated private data. Their demo instances recycle accounts every 5 minutes, making it impossible to truly test account deletion.
 - **PocketId:** This is a fantastic tool, but it had a critical UX flaw for my needs: it is **passkey-only** by default.
 
-While passkeys are the future, the current ecosystem is heavily fragmented. If a user is on an older OS or a restrictive browser, a passkey-only IdP completely locks them out. 
+While passkeys are the future, the current ecosystem is heavily fragmented. If a user is on an older OS or a restrictive browser, a passkey-only IdP completely locks them out.
 
 ---
 
@@ -76,17 +76,17 @@ This strictness had a massive secondary benefit: it created the **perfect enviro
 
 ## The Scale Ceiling (And Why It Doesn't Matter)
 
-The immediate pushback to this architecture is always: *"SQLite doesn't scale."*
+The immediate pushback to this architecture is always: _"SQLite doesn't scale."_
 
 I am intentionally honest about the scale ceiling: SQLite serializes writes. Auténtico is **not** designed for active-active multi-region deployments or massive enterprise horizontal scaling.
 
 However, let's look at the math:
 
-| Concurrency | Error rate | Login p95 | Token p95 | Assessment |
-|-------------|------------|-----------|-----------|------------|
-| 20 VUs | 0% | 86ms | 54ms | Comfortable — imperceptible to users |
-| 100 VUs | 0% | 611ms | 647ms | Supported — fully functional |
-| 500 VUs | 0% | 3.36s | 3.89s | Degraded — users feel the wait |
+| Concurrency | Error rate | Login p95 | Token p95 | Assessment                           |
+| ----------- | ---------- | --------- | --------- | ------------------------------------ |
+| 20 VUs      | 0%         | 86ms      | 54ms      | Comfortable — imperceptible to users |
+| 100 VUs     | 0%         | 611ms     | 647ms     | Supported — fully functional         |
+| 500 VUs     | 0%         | 3.36s     | 3.89s     | Degraded — users feel the wait       |
 
 > Performance tests with k6 show the system degrades gracefully via SQLite's busy timeout—queueing requests and adding latency rather than throwing errors.
 
@@ -99,13 +99,14 @@ For most teams running internal tools, small-to-mid-sized apps, or self-hosted e
 Operational simplicity does not mean protocol simplicity.
 
 Auténtico strictly enforces:
+
 - **OIDC Discovery** — publishes `/.well-known/openid-configuration` so relying parties auto-configure without hardcoding endpoints
 - **JWK Set** — exposes public signing keys at `/.well-known/jwks.json` for independent token verification
 - **RS256 JWT Signing** — asymmetric signing; the private key never leaves the IdP
 - **Auth2/OIDC protocol**: Implements OIDC protocol
 - **Admin UI**: For admins to manage clients, users and session
 - **Account UI**: For users to manage their profile
-- **Swagger OpenAPI docs**: Publishes API specs docs 
+- **Swagger OpenAPI docs**: Publishes API specs docs
 
 If you are a small team, an indie developer, or just someone who wants to deploy an Identity Provider without taking on a second job as a sysadmin, sometimes **the best architecture is the one you barely have to think about**.
 
