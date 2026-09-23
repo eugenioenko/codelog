@@ -13,9 +13,8 @@ const { activeNav } = Astro.props;
 <header
   class="relative flex items-center border-b border-theme-line py-3 pl-4 pr-2 sm:px-0 sm:py-4"
 >
-  <a href="/" class="flex items-center gap-2">
-    <Logo class="h-auto w-8 sm:w-12" />
-    <span class="md:text-3xl font-mono text-2xl">{SITE.title}</span>
+  <a href="/" class="flex items-center">
+    <Logo />
   </a>
   <Navigation active={activeNav} />
 </header>

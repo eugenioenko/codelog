@@ -1,11 +1,11 @@
 import type { Site, SocialObjects } from "./types";
 
 export const SITE: Site = {
-  website: "https://codelog.yy-dev.top",
+  website: "https://eugene.yakhnenko.com",
   author: "Eugene Yakhnenko",
   profile: "https://github.com/eugenioenko/",
-  desc: "A blog dedicated to sharing insights, tutorials, and best practices for crafting innovative, user-focused software solutions.",
-  title: "CodeLog",
+  desc: "Software engineering blog by Eugene Yakhnenko. Articles on frontend architecture, performance, developer tooling, and building things with TypeScript and Go.",
+  title: "Eugene Yakhnenko",
   ogImage: "og.png",
   lightAndDarkMode: true,
   postPerIndex: 10,
@@ -36,25 +36,25 @@ export const SOCIALS: SocialObjects = [
   {
     name: "Github",
     href: "https://github.com/eugenioenko",
-    linkTitle: ` ${SITE.title} on Github`,
+    linkTitle: `${SITE.author} on Github`,
     active: true,
   },
   {
     name: "Instagram",
     href: "https://www.instagram.com/eugenioenko/",
-    linkTitle: `${SITE.title} on Instagram`,
+    linkTitle: `${SITE.author} on Instagram`,
     active: true,
   },
   {
     name: "LinkedIn",
     href: "https://www.linkedin.com/in/eyakhnenko/",
-    linkTitle: `${SITE.title} on LinkedIn`,
+    linkTitle: `${SITE.author} on LinkedIn`,
     active: true,
   },
   {
     name: "Mail",
-    href: "mailto:eugenioenko@gmail.com",
-    linkTitle: `Send an email to ${SITE.title}`,
-    active: false,
+    href: "mailto:yevhen.yakhnenko@gmail.com",
+    linkTitle: `Send an email to ${SITE.author}`,
+    active: true,
   },
 ];
