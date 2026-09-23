@@ -3,44 +3,38 @@ layout: ../layouts/ProjectsLayout.astro
 title: "Projects"
 ---
 
-## BB Forum
+## TTT
 
-BB Forum is a work-in-progress minimalistic bulletin board that allows users to create, share, and discuss topics in a user-friendly environment. The forum emphasizes simplicity and usability, making it easy for users to engage with content.
+TTT (Terminal Text Tool) is a terminal-native IDE. A TUI that feels like a GUI — a real alternative to VS Code, Zed, and Sublime that runs in your terminal. Single Go binary, zero config. Features syntax highlighting, LSP support, a plugin marketplace, and multi-pane editing.
 
-[https://github.com/eugenioenko/bb-forum](https://github.com/eugenioenko/bb-forum)
-
-## Kasper-js
-
-Kasper-js is a work-in-progress JavaScript HTML template parser and renderer designed to help create and learn core mechanics of modern JavaScript frameworks.
-
-[https://github.com/eugenioenko/kasper-js](https://github.com/eugenioenko/kasper-js)
-
-## Libra Chess
-
-Libra Chess is a UCI (Universal Chess Interface) compliant chess engine written in Go. The primary goal of Libra is to achieve a balance between high performance, modern software architecture, and clarity of design. This project serves as an exploration of chess engine development leveraging Go's unique strengths in concurrency, tooling, and efficient compilation.
-
-[https://github.com/eugenioenko/libra-chess](https://github.com/eugenioenko/libra-chess)
-
-## Skedoodle
-
-Skedoodle is a real-time, interactive sketching and drawing tool that allows multiple users to connect, view, and edit the same board simultaneously. Designed for teams to brainstorm and visually collaborate. Built with Next.js, WebSocket, and Two.js, the platform delivers fast, responsive, and synchronized interactions across devices.
-
-[https://github.com/eugenioenko/skedoodle](https://github.com/eugenioenko/skedoodle)
+[tttedit.dev](https://tttedit.dev) · [GitHub](https://github.com/eugenioenko/ttt)
 
 ## Autentico
 
-Auténtico is an OpenID Connect (OIDC) authentication server built with Go, designed for developers seeking a lightweight, secure, and embeddable solution for modern identity management. It leverages SQLite for data persistence, ensuring easy integration and deployment.
+A self-contained OAuth 2.0 / OpenID Connect identity provider built with Go. Handles the full authentication lifecycle — login, MFA, passkeys, sessions, token issuance, and admin — in a single binary backed by SQLite. No external database, no infrastructure dependencies.
 
-[https://github.com/eugenioenko/autentico](https://github.com/eugenioenko/autentico)
+[getautentico.dev](https://getautentico.dev) · [GitHub](https://github.com/eugenioenko/autentico)
 
-## Fire’n Ice
+## oidc-js
 
-Fire'n Ice is a work-in-progress remake of the classic NES game, bringing nostalgia to modern browsers while introducing updated features and gameplay mechanics.
+Drop-in OIDC authentication for every JavaScript framework. Zero dependencies. Works with React, Vue, Svelte, Angular, Solid, Preact, and Lit.
 
-[https://github.com/eugenioenko/fire-n-ice](https://github.com/eugenioenko/fire-n-ice)
+[Docs](https://eugenioenko.github.io/oidc-js/) · [GitHub](https://github.com/eugenioenko/oidc-js)
 
-## @script
+## Kasper-js
 
-@script is an interpreter written in typescript of a scripting language somewhat similar to javascript which borrows some ideas from python
+A lightweight component framework with fine-grained Signal-based reactivity. No virtual DOM, no compiler — just components, signals, and surgical DOM updates.
 
-[https://github.com/eugenioenko/interpreter](https://github.com/eugenioenko/interpreter)
+[kasperjs.top](https://kasperjs.top) · [GitHub](https://github.com/eugenioenko/kasper-js)
+
+## Libra Chess
+
+A UCI-compliant chess engine written in Go.
+
+[GitHub](https://github.com/eugenioenko/libra-chess)
+
+## Fire'n Ice
+
+A remake of the classic NES game, bringing it to modern browsers.
+
+[GitHub](https://github.com/eugenioenko/fire-n-ice)

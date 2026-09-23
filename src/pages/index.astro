@@ -8,7 +8,6 @@ import Hr from "@components/Hr.astro";
 import Card from "@components/PostCard.astro";
 import getSortedPosts from "@utils/getSortedPosts";
 import { SITE } from "@config";
-import RssIcon from "@components/RssIcon.astro";
 import { IconArrowRight } from "@tabler/icons-react";
 
 const posts = await getCollection("blog");
@@ -22,40 +21,21 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
   <Header />
   <main>
     <section class="py-12">
-      <div class="flex flex-col gap-8 sm:flex-row">
-        <div class="flex flex-col items-center">
-          <div class="flex items-center justify-center gap-2 pb-6">
-            <h1 class="text-5xl font-bold">CodeLog</h1>
-            <a
-              target="_blank"
-              href="/rss.xml"
-              class="rss-link"
-              aria-label="rss feed"
-              title="RSS Feed"
-            >
-              <RssIcon />
-              <span class="sr-only">RSS Feed</span>
-            </a>
-          </div>
-          <img
-            class="max-w-48"
-            src="/assets/images/developer.svg"
-            alt="developer"
-          />
-        </div>
-        <div class="prose grow text-lg">
-          <p>
-            Welcome to CodeLog, a tech blog by Eugene, driven by a passion for
-            software engineering and innovation.
-          </p>
-          <p>
-            At CodeLog, I share insights, lessons, and best practices from my
-            journey in the software development world. Whether you’re building
-            modern web applications, exploring new frameworks, or seeking ways
-            to improve your development process, this blog is a space for
-            developers of all levels to learn, grow, and be inspired.
-          </p>
-        </div>
+      <div class="prose text-lg">
+        <p>
+          I'm Eugene Yakhnenko. I build products, and the systems and tooling
+          that let a team ship them faster. Authentication, real-time
+          collaboration, language runtimes, and developer tooling. Currently
+          working on <a href="https://getautentico.dev">Autentico</a>
+          (self-hosted OIDC provider) and <a href="https://tttedit.dev">TTT</a>
+          (a terminal IDE). Outside of code, I like
+          <a href="https://eugenioenko.github.io/photography/">photography</a>,
+          plants, and oil painting.
+        </p>
+        <p>
+          I write about OAuth and identity, frontend architecture, JavaScript
+          and TypeScript patterns, performance, and building things with Go.
+        </p>
       </div>
     </section>
 
